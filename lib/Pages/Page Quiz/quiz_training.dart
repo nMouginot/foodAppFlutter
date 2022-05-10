@@ -7,14 +7,14 @@ import '../../constants.dart';
 import 'progress_bar.dart';
 import 'question_training_card.dart';
 
-class MainQuiz extends StatefulWidget {
-  const MainQuiz({Key? key}) : super(key: key);
+class QuizTraining extends StatefulWidget {
+  const QuizTraining({Key? key}) : super(key: key);
 
   @override
-  State<MainQuiz> createState() => _MainQuizState();
+  State<QuizTraining> createState() => _QuizTrainingState();
 }
 
-class _MainQuizState extends State<MainQuiz> {
+class _QuizTrainingState extends State<QuizTraining> {
   final int timer = 70; // timer en secondes
   late Quiz currentQuiz;
   late List<Question> questions;

@@ -4,7 +4,7 @@ import 'package:flutter_food_app/Pages/Page%20Options/main_options.dart';
 import 'package:flutter_food_app/Pages/Page%20Quiz/create_quiz.dart';
 import 'package:flutter_food_app/Pages/Page%20Quiz/create_quiz_training_questions.dart';
 import 'package:flutter_food_app/Pages/Page%20Quiz/list_training_quiz.dart';
-import 'package:flutter_food_app/Pages/Page%20Quiz/main_quiz.dart';
+import 'package:flutter_food_app/Pages/Page%20Quiz/quiz_training.dart';
 import 'package:flutter_food_app/Pages/Page%20Quiz/quiz_handler.dart';
 import 'package:flutter_food_app/Pages/Page%20Quiz/testpage.dart';
 
@@ -51,21 +51,21 @@ class _HomeState extends State<Home> {
           ElevatedButton(
             onPressed: () => {
               Navigator.of(context).push(
-                  MaterialPageRoute(builder: (context) => const MainQuiz()))
+                  MaterialPageRoute(builder: (context) => const QuizTraining()))
             },
             child: ccText("List evaluation quiz"),
           ),
           ElevatedButton(
             onPressed: () => {
               Navigator.of(context).push(
-                  MaterialPageRoute(builder: (context) => const MainQuiz()))
+                  MaterialPageRoute(builder: (context) => const QuizTraining()))
             },
             child: ccText("List quiz to correct"),
           ),
           ElevatedButton(
             onPressed: () => {
               Navigator.of(context).push(
-                  MaterialPageRoute(builder: (context) => const MainQuiz()))
+                  MaterialPageRoute(builder: (context) => const QuizTraining()))
             },
             child: ccText("Open payement"),
           ),

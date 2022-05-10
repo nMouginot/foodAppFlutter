@@ -43,12 +43,12 @@ class QuizHandler {
   static void getFileJsonTextDebug(int index) async {
     debugPrint("GET FILE [$index] : ");
     final directory = await getApplicationDocumentsDirectory();
-    print((jsonDecode(
-        await (await Directory(directory.path).list().toList())
-            .whereType<File>()
-            .elementAt(index)
-            .readAsString())));
-            aze
+    debugPrint((jsonDecode(
+            await (await Directory(directory.path).list().toList())
+                .whereType<File>()
+                .elementAt(index)
+                .readAsString()))
+        .toString());
   }
 
   static void deleteFileByIndex(int index) async {
