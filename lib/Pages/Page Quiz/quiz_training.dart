@@ -8,32 +8,34 @@ import 'progress_bar.dart';
 import 'question_training_card.dart';
 
 class QuizTraining extends StatefulWidget {
-  const QuizTraining({Key? key}) : super(key: key);
+  const QuizTraining({Key? key, required this.parameterQuiz}) : super(key: key);
+  final Quiz parameterQuiz;
 
   @override
   State<QuizTraining> createState() => _QuizTrainingState();
 }
 
 class _QuizTrainingState extends State<QuizTraining> {
-  final int timer = 70; // timer en secondes
   late Quiz currentQuiz;
-  late List<Question> questions;
   late Question currentQuestion;
   bool isAnswered = false;
   late void nextQuestion;
 
   @override
   void initState() {
-    List<dynamic> decodedData = jsonDecode(sample_data_quiz);
-    currentQuiz = Quiz.fromJson(decodedData.first);
-    questions = currentQuiz.questions;
-    currentQuestion = questions.first;
+    print("id widget.currentquiz ${widget.parameterQuiz.id}");
+    currentQuiz = widget.parameterQuiz;
+    if (currentQuiz.questions.isNotEmpty) {
+      currentQuestion = currentQuiz.questions.first;
+    } else {
+      Navigator.of(context).pop();
+    }
     super.initState();
   }
 
   void _updateTheQuestionIdWithAnswerSelected(int idAnswerSelected) {
     // save si une réponse a été selectionné. Si id = -1, la question a été skip, si id = -2, fin de timer avant réponse.
-    // TODO stockage de la réponse en local et en bdd.
+    // TODO stockage de la réponse en local (et en bdd ? Ou j'attend la fin de quiz ? Pour le training, je pense que la fin de quiz est mieux.)
     _updateTheQuestionId();
   }
 
@@ -42,9 +44,9 @@ class _QuizTrainingState extends State<QuizTraining> {
     setState(() {});
 
     Future.delayed(const Duration(seconds: 2), () {
-      if (currentQuestion.id < questions.length) {
+      if (currentQuestion.id < currentQuiz.questions.length) {
         setState(() {
-          currentQuestion = questions[currentQuestion.id];
+          currentQuestion = currentQuiz.questions[currentQuestion.id];
           isAnswered = false;
         });
       } else {
@@ -83,7 +85,7 @@ class _QuizTrainingState extends State<QuizTraining> {
                   visible: !isAnswered,
                   child: ProgressBar(
                       key: UniqueKey(),
-                      timer: timer,
+                      timer: currentQuiz.timerQuiz,
                       callback: _updateTheQuestionIdWithAnswerSelected),
                 )),
             const SizedBox(height: kDefaultPadding),

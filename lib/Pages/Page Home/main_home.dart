@@ -50,22 +50,22 @@ class _HomeState extends State<Home> {
           ),
           ElevatedButton(
             onPressed: () => {
-              Navigator.of(context).push(
-                  MaterialPageRoute(builder: (context) => const QuizTraining()))
+              Navigator.of(context).push(MaterialPageRoute(
+                  builder: (context) => const ListTrainingQuiz()))
             },
             child: ccText("List evaluation quiz"),
           ),
           ElevatedButton(
             onPressed: () => {
-              Navigator.of(context).push(
-                  MaterialPageRoute(builder: (context) => const QuizTraining()))
+              Navigator.of(context).push(MaterialPageRoute(
+                  builder: (context) => const ListTrainingQuiz()))
             },
             child: ccText("List quiz to correct"),
           ),
           ElevatedButton(
             onPressed: () => {
-              Navigator.of(context).push(
-                  MaterialPageRoute(builder: (context) => const QuizTraining()))
+              Navigator.of(context).push(MaterialPageRoute(
+                  builder: (context) => const ListTrainingQuiz()))
             },
             child: ccText("Open payement"),
           ),
@@ -81,7 +81,7 @@ class _HomeState extends State<Home> {
             child: ccText("Local Files"),
           ),
           ElevatedButton(
-            onPressed: () => {QuizHandler.getFileJsonTextDebug(1)},
+            onPressed: () => {QuizHandler.getFileJsonTextDebug(2)},
             child: ccText("Content of file"),
           ),
           ElevatedButton(

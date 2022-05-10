@@ -1,8 +1,8 @@
-import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter_food_app/Model/QuizWithoutQuestions.dart';
 import 'package:flutter_food_app/Pages/Page%20Quiz/create_quiz_training_questions.dart';
 import 'package:flutter_food_app/Pages/Page%20Quiz/quiz_handler.dart';
+import 'package:flutter_food_app/Pages/Page%20Quiz/quiz_training.dart';
 
 class ListTrainingQuiz extends StatefulWidget {
   const ListTrainingQuiz({Key? key}) : super(key: key);
@@ -12,6 +12,26 @@ class ListTrainingQuiz extends StatefulWidget {
 }
 
 class _ListTrainingQuizState extends State<ListTrainingQuiz> {
+  void navigateToQuizTrainingWithData(int? quizId, BuildContext context) async {
+    if (quizId != null) {
+      // Get quiz data
+      var quiz = await QuizHandler.getQuizById(quizId);
+
+      // Navigate to QuizTraining
+      if (quiz != null) {
+        print("quiz value = $quiz");
+        Navigator.of(context).push(MaterialPageRoute(
+            builder: (context) => QuizTraining(
+                  parameterQuiz: quiz,
+                )));
+      } else {
+        debugPrint("Quiz Training = null, can't navigate.");
+      }
+    } else {
+      debugPrint("Quiz Training Id = null, can't navigate.");
+    }
+  }
+
   Stream<List<QuizWithoutQuestions>> getQuizStream = (() async* {
     await Future<void>.delayed(const Duration(milliseconds: 1));
     yield await QuizHandler.getQInvValue();
@@ -49,6 +69,10 @@ class _ListTrainingQuizState extends State<ListTrainingQuiz> {
                 itemCount: listQuiz.data?.length,
                 itemBuilder: (context, index) {
                   return ListTile(
+                    onTap: () => {
+                      navigateToQuizTrainingWithData(
+                          listQuiz.data?[index].id, context)
+                    },
                     title: Text("${listQuiz.data?[index].name}"),
                     subtitle: Text(
                         "Matiere: ${listQuiz.data?[index].matiere}\nNiveau: ${listQuiz.data?[index].niveau}"),
