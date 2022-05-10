@@ -1,4 +1,3 @@
-import 'dart:collection';
 import 'dart:io';
 import 'dart:convert';
 import 'package:flutter/cupertino.dart';
@@ -93,11 +92,15 @@ class QuizHandler {
 
   static Future<int> getUniqueId() async {
     var allQuiz = await getQInvValue();
-    int uniqueId = allQuiz.last.id + 1;
-    while (allQuiz.where((element) => element.id == uniqueId).isNotEmpty) {
-      uniqueId++;
+    if (allQuiz.isNotEmpty) {
+      int uniqueId = allQuiz.last.id + 1;
+      while (allQuiz.where((element) => element.id == uniqueId).isNotEmpty) {
+        uniqueId++;
+      }
+      return uniqueId;
+    } else {
+      return 1;
     }
-    return uniqueId;
   }
 
   // Permet d'ajouter un quiz sans lui définir d'id.

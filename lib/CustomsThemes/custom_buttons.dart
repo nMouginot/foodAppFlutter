@@ -9,7 +9,9 @@ final ButtonStyle TEST_DEBUG_elevatedButton = ElevatedButton.styleFrom(
   minimumSize: const Size(88, 36),
   padding: const EdgeInsets.symmetric(horizontal: 16),
   shape: const RoundedRectangleBorder(
-    borderRadius: BorderRadius.all(Radius.circular(2)),
+    borderRadius: BorderRadius.all(
+      Radius.circular(2),
+    ),
   ),
 );
 

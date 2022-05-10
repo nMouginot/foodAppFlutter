@@ -8,10 +8,10 @@ class Question {
   final int id; // Identifiant unique du quiz
   int idSorting; // Identifiant permettant de trier l'ordre des questions (Et donc, de les mélangés.) Il est aussi utiliser pour la génération du titre de la question
   String question; // Texte de la question qui est actuellement enregister
-  String answer1; // Première réponse possible à la question.
-  String answer2; // Deuxième réponse possible à la question.
-  String answer3; // Troisième réponse possible à la question.
-  String answer4; // Quatrième réponse possible à la question.
+  String answer1; // Première réponse 1 possible à la question.
+  String answer2; // Deuxième réponse 2 possible à la question.
+  String answer3; // Troisième réponse 3 possible à la question.
+  String answer4; // Quatrième réponse 4 possible à la question.
   String
       answerTextFromUser; // Pour les quiz noté, permet à l'utilisateur de répondre sans avoir de réponse pré-existante. Si utilisé, answer1/2/3/4 sont vides.
   String
@@ -20,31 +20,49 @@ class Question {
       correctAnswers; // Liste de bool permetant de savoir quel question est juste. Toujours une liste de 4 normalement !
 
   // Suite de toute les réponses possible sous forme de tableau pour l'afficahge des cards sur la page question_training_card
-  List<String> get answersGrouped => [answer1, answer2, answer3, answer4];
+  List<String> get answersGrouped => _computeAnswersGrouped();
+  List<String> _computeAnswersGrouped() {
+    List<String> result = List.empty(growable: true);
+
+    if (answer1 != "---") {
+      result.add(answer1);
+    }
+    if (answer2 != "---") {
+      result.add(answer2);
+    }
+    if (answer3 != "---") {
+      result.add(answer3);
+    }
+    if (answer4 != "---") {
+      result.add(answer4);
+    }
+
+    return result;
+  }
 
 // Liste des bonnes réponse uniquements sous forme de texte pour simplifier les tests de validité.
   List<String> get correctAnswersText => _computeCorrectAnswersTextValue();
   _computeCorrectAnswersTextValue() {
     List<String> result = List.empty(growable: true);
-    switch (correctAnswers.length) {
-      case 4:
-        result.add(answer4);
-        continue case3;
+    List<String> allAnswers = List.empty(growable: true);
 
-      case3:
-      case 3:
-        result.add(answer3);
-        continue case2;
+    if (correctAnswers.isNotEmpty) {
+      allAnswers.add(answer1);
+    }
+    if (correctAnswers.length >= 2) {
+      allAnswers.add(answer2);
+    }
+    if (correctAnswers.length >= 3) {
+      allAnswers.add(answer3);
+    }
+    if (correctAnswers.length >= 4) {
+      allAnswers.add(answer4);
+    }
 
-      case2:
-      case 2:
-        result.add(answer2);
-        continue case1;
-
-      case1:
-      case 1:
-        result.add(answer1);
-        break;
+    for (var i = 0; i < correctAnswers.length; i++) {
+      if (correctAnswers[i] == true) {
+        result.add(allAnswers[i]);
+      }
     }
     return result;
   }
@@ -125,32 +143,3 @@ class Question {
   /// Connect the generated [_$QuestionToJson] function to the `toJson` method.
   Map<String, dynamic> toJson() => _$QuestionToJson(this);
 }
-
-// ignore: constant_identifier_names
-const String sample_data_quizQuestionOLD = """[
-  {
-    "id": 1,
-    "question":
-        "Flutter is an open-source UI software development kit created by ______",
-    "answers": ["Apple", "Google", "Facebook", "Microsoft"],
-    "validAnswers": ["Apple"]
-  },
-  {
-    "id": 2,
-    "question": "When google release Flutter.",
-    "answers": ["Jun 2017", "Jun 2017", "May 2017", "May 2018"],
-    "validAnswers": ["May 2017"]
-  },
-  {
-    "id": 3,
-    "question": "A memory location that holds a single letter or number.",
-    "answers": ["Double", "Int", "Char", "Word"],
-    "validAnswers": ["Char"]
-  },
-  {
-    "id": 4,
-    "question": "What command do you use to output data to the screen?",
-    "answers": ["Cin", "Count>>", "Cout", "Output>>"],
-    "validAnswers": ["Cout"]
-  }
-]""";
