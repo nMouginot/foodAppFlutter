@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter_food_app/Model/QuizQuestion.dart';
 import '../../Model/Quiz.dart';
@@ -23,7 +22,6 @@ class _QuizTrainingState extends State<QuizTraining> {
 
   @override
   void initState() {
-    print("id widget.currentquiz ${widget.parameterQuiz.id}");
     currentQuiz = widget.parameterQuiz;
     if (currentQuiz.questions.isNotEmpty) {
       currentQuestion = currentQuiz.questions.first;
@@ -51,7 +49,6 @@ class _QuizTrainingState extends State<QuizTraining> {
         });
       } else {
         // TODO affichage fin de QCM et stockage des résultats sur la bdd.
-        print("fin de qcm");
       }
     });
   }

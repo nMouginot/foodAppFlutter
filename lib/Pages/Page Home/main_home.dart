@@ -2,9 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_food_app/CustomsComponents/cc_text.dart';
 import 'package:flutter_food_app/Pages/Page%20Options/main_options.dart';
 import 'package:flutter_food_app/Pages/Page%20Quiz/create_quiz.dart';
-import 'package:flutter_food_app/Pages/Page%20Quiz/create_quiz_training_questions.dart';
 import 'package:flutter_food_app/Pages/Page%20Quiz/list_training_quiz.dart';
-import 'package:flutter_food_app/Pages/Page%20Quiz/quiz_training.dart';
 import 'package:flutter_food_app/Pages/Page%20Quiz/quiz_handler.dart';
 import 'package:flutter_food_app/Pages/Page%20Quiz/testpage.dart';
 

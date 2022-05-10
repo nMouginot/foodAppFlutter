@@ -90,7 +90,6 @@ class _testState extends State<test> {
 // TEST POUR LES STEAMS !
   Stream<List<QuizWithoutQuestions>> getQuizStream = (() async* {
     await Future<void>.delayed(const Duration(seconds: 2));
-    print("${QuizHandler.getQInvValue()}");
     yield await QuizHandler.getQInvValue();
   })();
 
@@ -200,7 +199,6 @@ class _testState extends State<test> {
                                   onTap: () => {
                                     setState(() => {
                                           listQuiz.data?.removeAt(index),
-                                          print("removed $index")
                                         })
                                   },
                                 );

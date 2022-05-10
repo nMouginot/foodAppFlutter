@@ -189,15 +189,14 @@ class _CreateQuizQuestionState extends State<CreateQuizQuestion> {
     }
   }
 
+  // ignore: non_constant_identifier_names
   Future<bool> validateAndSaveQuiz(int p_quizId) async {
     late final int quizId;
-    QuizWithoutQuestions? quizInfo;
     late final QuizWithoutQuestions quizInfoValidated;
 
     // Si c'est un quiz qui est existant nulpart. (Pas dans le fichier QInv)
     if (p_quizId < 0) {
       quizId = await QuizHandler.getUniqueId();
-      quizInfo = null;
 
       // TODO Si c'est un nouveau quiz, il faut récupérer ces données dans le json avec la variable "QuizHandler.lastAddedQuizId"
       // TODO mettre a jour QInv en plus du fichier json du quiz

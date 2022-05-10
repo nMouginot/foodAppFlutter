@@ -38,6 +38,7 @@ class QuizWithoutQuestions {
     }
   }
 
+  // ignore: non_constant_identifier_names
   QuizWithoutQuestions.FromQuiz({required Quiz quiz}) {
     id = quiz.id;
     name = quiz.name;

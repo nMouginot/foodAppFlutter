@@ -19,7 +19,6 @@ class _ListTrainingQuizState extends State<ListTrainingQuiz> {
 
       // Navigate to QuizTraining
       if (quiz != null) {
-        print("quiz value = $quiz");
         Navigator.of(context).push(MaterialPageRoute(
             builder: (context) => QuizTraining(
                   parameterQuiz: quiz,

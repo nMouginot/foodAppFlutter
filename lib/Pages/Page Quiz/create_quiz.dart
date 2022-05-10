@@ -22,7 +22,7 @@ class CreateQuiz extends StatelessWidget {
       .map((json) => Niveaux(value: json['niveau']))
       .toList();
 
-  CreateQuiz() {
+  CreateQuiz({Key? key}) : super(key: key) {
     dropdownMatiereValue = _matieres[0].value;
     dropdownMatieresItems = _matieres
         .map((e) => DropdownMenuItem(child: Text(e.value), value: e.value))
