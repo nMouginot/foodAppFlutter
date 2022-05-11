@@ -173,8 +173,6 @@ class _CreateQuizQuestionState extends State<CreateQuizQuestion> {
 
       isEditing = true;
       currentEditedQuestion = question;
-
-      // TODO Modifier le stockage en json dans la fonction removeItem
     });
   }
 
@@ -196,14 +194,10 @@ class _CreateQuizQuestionState extends State<CreateQuizQuestion> {
 
     // Si c'est un quiz qui est existant nulpart. (Pas dans le fichier QInv)
     if (p_quizId < 0) {
-      quizId = await QuizHandler.getUniqueId();
-
-      // TODO Si c'est un nouveau quiz, il faut récupérer ces données dans le json avec la variable "QuizHandler.lastAddedQuizId"
-      // TODO mettre a jour QInv en plus du fichier json du quiz
-    }
-
-    //
-    else {
+      // Si l'on passe ici, c'est que l'on modifie les questions d'un quiz qui n'existe pas. ERREUR CRITIQUE !
+      debugPrint(
+          "ERREUR : Tentative de modification des questions d'un quiz qui n'existe pas !");
+    } else {
       quizId = p_quizId;
 
       // Si c'est un quiz existant avec ou sans fichier json, je vérifie qu'il est bien dans QInv et je récup ces valeurs.
@@ -393,7 +387,6 @@ class _CreateQuizQuestionState extends State<CreateQuizQuestion> {
                   trailing: const Icon(Icons.delete, size: 30),
                   onTap: () {
                     setState(() {
-                      // TODO Modifier le stockage en json
                       Question.removeItem(questionList, question);
                     });
                   });

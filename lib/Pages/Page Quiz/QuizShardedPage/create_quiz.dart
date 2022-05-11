@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_food_app/Mock%20Data/Matiere.dart';
 import 'package:flutter_food_app/Mock%20Data/Niveaux.dart';
-import 'package:flutter_food_app/Pages/Page%20Quiz/create_quiz_training_questions.dart';
+import 'package:flutter_food_app/Pages/Page%20Quiz/QuizTraining/create_quiz_training_questions.dart';
 import 'package:flutter_food_app/Pages/Page%20Quiz/quiz_handler.dart';
 import 'package:flutter_food_app/Tools/c_divider1.dart';
 import 'package:flutter_food_app/Tools/c_header1.dart';
@@ -71,7 +71,7 @@ class CreateQuiz extends StatelessWidget {
           timerQuiz: int.parse(quizTimerController.value.text));
 
       if (true) {
-        // TODO Modifier le true par une valeur d'un bouton pour choisir si le quiz est en mode training ou graded.
+        // TODO Modifier le true de ce if par la valeur d'un bouton (A ajouter a la page) pour choisir si le quiz est en mode training ou graded.
         Navigator.of(context).pop();
         Navigator.of(context).push(MaterialPageRoute(
             builder: (context) => CreateQuizQuestion(quizId: addedQuizId)));

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_food_app/utils/constants.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import '../../../constants.dart';
 
 class ProgressBar extends StatefulWidget {
   final int timer;

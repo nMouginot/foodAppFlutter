@@ -26,14 +26,14 @@ class QuizHandler {
 
   // Affiche dans la console la liste de tout les fichiers présent dans l'emplacement de sauvegarde dédié de l'app.
   static void getAllFileDebug() async {
-    print("GET ALL FILES DEBUG : ");
+    debugPrint("GET ALL FILES DEBUG : ");
     final directory = await getApplicationDocumentsDirectory();
     int count = 0;
 
     (await Directory(directory.path).list().toList())
         .whereType<File>()
         .forEach((element) {
-      print("Files[$count] : ${element.path}");
+      debugPrint("Files[$count] : ${element.path}");
       count++;
     });
   }
@@ -174,7 +174,7 @@ class QuizHandler {
       lastAddedQuizId = quiz.id;
       return true;
     } else {
-      print(
+      debugPrint(
           "(QuizHandler) Il n'y a pas de quiz existant possible à supprimer.");
       return false;
     }

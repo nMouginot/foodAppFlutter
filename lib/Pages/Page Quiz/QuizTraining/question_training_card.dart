@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import '../../../constants.dart';
-import '../../Model/QuizQuestion.dart';
-import 'color_question_option.dart';
+import '../../../utils/constants.dart';
+import '../../../Model/QuizQuestion.dart';
+import '../QuizTools/color_question_option.dart';
 
 class QuestionCard extends StatelessWidget {
   const QuestionCard(

@@ -1,9 +1,9 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_food_app/Model/QuizQuestion.dart';
-import '../../Model/Quiz.dart';
-import '../../constants.dart';
-import 'progress_bar.dart';
+import 'package:flutter_food_app/utils/constants.dart';
+import '../../../Model/Quiz.dart';
+import '../QuizTools/progress_bar.dart';
 import 'question_training_card.dart';
 
 class QuizTraining extends StatefulWidget {
@@ -20,20 +20,49 @@ class _QuizTrainingState extends State<QuizTraining> {
   bool isAnswered = false;
   late void nextQuestion;
 
+  /* Le premier chiffre est le numero de la question, le deuxième est le nombre de point.
+    Pour le calcul des points : 
+    - Si l'utilisateur a répondu faux, il a 0
+    - Si l'utilisateur a répondu a moitié juste, il a 0,5
+    - Si l'utilisateur a répondu juste, il a 1
+    - Si l'utilisateur a skip la question, -1
+    - Si l'utilisateur n'a pas répondu avant la fin du timer, -2
+
+    calcul : Points = réponse justes user / réponses juste totales (Sauf cas spéciaux, timer ou skip.) */
+  Map<int, double> userResult = {};
+
   @override
   void initState() {
     currentQuiz = widget.parameterQuiz;
     if (currentQuiz.questions.isNotEmpty) {
+      // TODO Si l'on veut avoir un ordre de question aléatoire, il faut modifier la liste "currentQuiz.questions" ici.
+
+      // Initialise la map des réponses de l'utilisateur.
+      for (var i = 0; i < currentQuiz.questions.length; i++) {
+        userResult[i + 1] = 0;
+      }
+      // Défini la première question du quiz.
       currentQuestion = currentQuiz.questions.first;
     } else {
+      // Si le quiz n'a pas de question, quitte la page.
       Navigator.of(context).pop();
     }
     super.initState();
   }
 
   void _updateTheQuestionIdWithAnswerSelected(int idAnswerSelected) {
-    // save si une réponse a été selectionné. Si id = -1, la question a été skip, si id = -2, fin de timer avant réponse.
-    // TODO stockage de la réponse en local (et en bdd ? Ou j'attend la fin de quiz ? Pour le training, je pense que la fin de quiz est mieux.)
+    // Si id = -1, la question a été skip, si id = -2, fin de timer avant réponse.
+    if (idAnswerSelected == -1 || idAnswerSelected == -2) {
+      userResult[currentQuestion.id] = idAnswerSelected.toDouble();
+    }
+
+    // Fonctionne uniquement avec une seule réponse valide, il faudra modifier ce code avec une boucle si plusieurs réponse sont possibles dans le futur et
+    // envoyer une liste en parametre, non pas une réponse unique.
+    if (currentQuestion.correctAnswers[idAnswerSelected]) {
+      userResult[currentQuestion.id] = 1;
+    } else {
+      userResult[currentQuestion.id] = 0;
+    }
     _updateTheQuestionId();
   }
 
@@ -48,7 +77,10 @@ class _QuizTrainingState extends State<QuizTraining> {
           isAnswered = false;
         });
       } else {
-        // TODO affichage fin de QCM et stockage des résultats sur la bdd.
+        // Stockage des résultats en local
+
+        // TODO affichage fin de QCM
+        // TODO stockage des résultats sur la bdd
       }
     });
   }

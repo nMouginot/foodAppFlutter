@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_food_app/CustomsComponents/cc_text.dart';
-import 'package:flutter_food_app/Pages/Page%20Options/main_options.dart';
-import 'package:flutter_food_app/Pages/Page%20Quiz/create_quiz.dart';
-import 'package:flutter_food_app/Pages/Page%20Quiz/list_training_quiz.dart';
-import 'package:flutter_food_app/Pages/Page%20Quiz/quiz_handler.dart';
-import 'package:flutter_food_app/Pages/Page%20Quiz/testpage.dart';
+import 'package:flutter_food_app/Tools/c_homeCard1.dart';
+import '../../utils/dimension.dart';
+import '../../utils/strings.dart';
+import '../../utils/uicolors.dart';
 
 class Home extends StatefulWidget {
   const Home({Key? key}) : super(key: key);
@@ -20,74 +18,50 @@ class _HomeState extends State<Home> {
       appBar: AppBar(
         title: const Text("Home"),
       ),
-      body: Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Center(
-              child: ElevatedButton(
-            onPressed: () => {
-              Navigator.of(context).push(
-                  MaterialPageRoute(builder: (context) => const MainOptions()))
-            },
-            child: ccText("Open settings page"),
-          )),
-          ElevatedButton(
-            onPressed: () => {
-              Navigator.of(context)
-                  .push(MaterialPageRoute(builder: (context) => CreateQuiz()))
-            },
-            child: ccText("Create quiz"),
-          ),
-          ElevatedButton(
-            onPressed: () => {
-              Navigator.of(context).push(MaterialPageRoute(
-                  builder: (context) => const ListTrainingQuiz()))
-            },
-            child: ccText("List training quiz"),
-          ),
-          ElevatedButton(
-            onPressed: () => {
-              Navigator.of(context).push(MaterialPageRoute(
-                  builder: (context) => const ListTrainingQuiz()))
-            },
-            child: ccText("List evaluation quiz"),
-          ),
-          ElevatedButton(
-            onPressed: () => {
-              Navigator.of(context).push(MaterialPageRoute(
-                  builder: (context) => const ListTrainingQuiz()))
-            },
-            child: ccText("List quiz to correct"),
-          ),
-          ElevatedButton(
-            onPressed: () => {
-              Navigator.of(context).push(MaterialPageRoute(
-                  builder: (context) => const ListTrainingQuiz()))
-            },
-            child: ccText("Open payement"),
-          ),
-          ElevatedButton(
-            onPressed: () => {
-              Navigator.of(context)
-                  .push(MaterialPageRoute(builder: (context) => const test()))
-            },
-            child: ccText("TEST PAGE"),
-          ),
-          ElevatedButton(
-            onPressed: () => {QuizHandler.getAllFileDebug()},
-            child: ccText("Local Files"),
-          ),
-          ElevatedButton(
-            onPressed: () => {QuizHandler.getFileJsonTextDebug(2)},
-            child: ccText("Content of file"),
-          ),
-          ElevatedButton(
-            onPressed: () => {QuizHandler.deleteFileByIndex(-1)},
-            child: ccText("Delete file by index"),
-          ),
-        ],
-      ),
+      body: ListView(
+          physics: const AlwaysScrollableScrollPhysics(),
+          padding: const EdgeInsets.fromLTRB(0, 30, 0, 0),
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                GestureDetector(
+                  onTap: () => {print("Quiz d'entrainement tapped")},
+                  child: c_homeCard1("Quiz d'entrainement", "Sub text",
+                      "assets/images/placeholder.png"),
+                ),
+                GestureDetector(
+                  onTap: () => {print("Quiz noté")},
+                  child: c_homeCard1("Quiz noté", "Sub text 2",
+                      "assets/images/placeholder.png"),
+                ),
+              ],
+            ),
+            SizedBox(
+              height: size30,
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                c_homeCard1(
+                    "Notes", "Sub text", "assets/images/placeholder.png"),
+                c_homeCard1("Statistiques", "Sub text 2",
+                    "assets/images/placeholder.png"),
+              ],
+            ),
+            SizedBox(
+              height: size30,
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                c_homeCard1("Support de cours", "Sub text",
+                    "assets/images/placeholder.png"),
+                c_homeCard1(
+                    "Modules", "Sub text 2", "assets/images/placeholder.png"),
+              ],
+            ),
+          ]),
     );
   }
 }
