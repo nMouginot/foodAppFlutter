@@ -17,7 +17,9 @@ Quiz _$QuizFromJson(Map<String, dynamic> json) => Quiz(
       questions: (json['questions'] as List<dynamic>)
           .map((e) => Question.fromJson(e as Map<String, dynamic>))
           .toList(),
-    )..storageFileName = json['storageFileName'] as String;
+    )
+      ..creationDate = DateTime.parse(json['creationDate'] as String)
+      ..storageFileName = json['storageFileName'] as String;
 
 Map<String, dynamic> _$QuizToJson(Quiz instance) => <String, dynamic>{
       'id': instance.id,
@@ -28,5 +30,6 @@ Map<String, dynamic> _$QuizToJson(Quiz instance) => <String, dynamic>{
       'isTraining': instance.isTraining,
       'timerQuiz': instance.timerQuiz,
       'questions': instance.questions.map((e) => e.toJson()).toList(),
+      'creationDate': instance.creationDate.toIso8601String(),
       'storageFileName': instance.storageFileName,
     };

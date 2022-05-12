@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_food_app/Model/QuizQuestion.dart';
+import 'package:flutter_food_app/Pages/Page%20Quiz/QuizTraining/quiz_training_result.dart';
 import 'package:flutter_food_app/utils/constants.dart';
 import '../../../Model/Quiz.dart';
 import '../QuizTools/progress_bar.dart';
@@ -20,7 +21,7 @@ class _QuizTrainingState extends State<QuizTraining> {
   bool isAnswered = false;
   late void nextQuestion;
 
-  /* Le premier chiffre est le numero de la question, le deuxième est le nombre de point.
+  /* Le premier chiffre est l'id de la question, le deuxième est le nombre de point.
     Pour le calcul des points : 
     - Si l'utilisateur a répondu faux, il a 0
     - Si l'utilisateur a répondu a moitié juste, il a 0,5
@@ -35,10 +36,12 @@ class _QuizTrainingState extends State<QuizTraining> {
   void initState() {
     currentQuiz = widget.parameterQuiz;
     if (currentQuiz.questions.isNotEmpty) {
-      // TODO Si l'on veut avoir un ordre de question aléatoire, il faut modifier la liste "currentQuiz.questions" ici.
-
-      // Initialise la map des réponses de l'utilisateur.
       for (var i = 0; i < currentQuiz.questions.length; i++) {
+        // TODO Si l'on veut avoir un ordre de question aléatoire, il faut modifier les valeurs "currentQuiz.questions.idSorting" ici.
+        // Tri le quiz dans un ordre fixe. A modifier pour avoir un ordre variable !
+        currentQuiz.questions[i].idSorting = i + 1;
+
+        // Initialise la map des réponses de l'utilisateur.
         userResult[i + 1] = 0;
       }
       // Défini la première question du quiz.
@@ -54,15 +57,16 @@ class _QuizTrainingState extends State<QuizTraining> {
     // Si id = -1, la question a été skip, si id = -2, fin de timer avant réponse.
     if (idAnswerSelected == -1 || idAnswerSelected == -2) {
       userResult[currentQuestion.id] = idAnswerSelected.toDouble();
+    } else {
+      // Fonctionne uniquement avec une seule réponse valide, il faudra modifier ce code avec une boucle si plusieurs réponse sont possibles dans le futur et
+      // envoyer une liste en parametre, non pas une réponse unique.
+      if (currentQuestion.correctAnswers[idAnswerSelected]) {
+        userResult[currentQuestion.id] = 1;
+      } else {
+        userResult[currentQuestion.id] = 0;
+      }
     }
 
-    // Fonctionne uniquement avec une seule réponse valide, il faudra modifier ce code avec une boucle si plusieurs réponse sont possibles dans le futur et
-    // envoyer une liste en parametre, non pas une réponse unique.
-    if (currentQuestion.correctAnswers[idAnswerSelected]) {
-      userResult[currentQuestion.id] = 1;
-    } else {
-      userResult[currentQuestion.id] = 0;
-    }
     _updateTheQuestionId();
   }
 
@@ -71,16 +75,22 @@ class _QuizTrainingState extends State<QuizTraining> {
     setState(() {});
 
     Future.delayed(const Duration(seconds: 2), () {
-      if (currentQuestion.id < currentQuiz.questions.length) {
+      if (currentQuestion.idSorting < currentQuiz.questions.length) {
         setState(() {
-          currentQuestion = currentQuiz.questions[currentQuestion.id];
+          currentQuestion = currentQuiz.questions[currentQuestion.idSorting];
           isAnswered = false;
         });
       } else {
-        // Stockage des résultats en local
+        // TODO Stockage des résultats en local
 
         // TODO affichage fin de QCM
+
         // TODO stockage des résultats sur la bdd
+
+        // Navigation sur la page de résultat
+        Navigator.of(context).push(MaterialPageRoute(
+            builder: (context) => QuizTrainingResult(
+                quizName: currentQuiz.name, userResult: userResult)));
       }
     });
   }
@@ -122,7 +132,7 @@ class _QuizTrainingState extends State<QuizTraining> {
               padding: const EdgeInsets.symmetric(horizontal: kDefaultPadding),
               child: Text.rich(
                 TextSpan(
-                  text: "Question ${currentQuestion.id}/",
+                  text: "Question ${currentQuestion.idSorting}/",
                   style: Theme.of(context).textTheme.headline4,
                   children: [
                     TextSpan(

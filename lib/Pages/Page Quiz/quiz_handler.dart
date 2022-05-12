@@ -2,6 +2,7 @@ import 'dart:io';
 import 'dart:convert';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_food_app/Model/QuizWithoutQuestions.dart';
+import 'package:flutter_food_app/Tools/prettyJsonDisplay.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:flutter_food_app/Model/Quiz.dart';
 import 'package:http/http.dart' as http;
@@ -10,7 +11,7 @@ import 'package:http/http.dart' as http;
 https://pub.dev/packages/path_provider/example
 https://betterprogramming.pub/how-to-handle-data-locally-in-flutter-79506abc07c9 */
 
-// Enregistre les PDF en local et créer un index en json contnant la liste des pdf enregistrés et leurs informations annexes. (matière, niveau)
+// Enregistre les Quiz d'entrainement en local et créer un index en json.
 class QuizHandler {
   static final QuizHandler _fileHandler = QuizHandler._internal();
   factory QuizHandler() {
@@ -42,12 +43,13 @@ class QuizHandler {
   static void getFileJsonTextDebug(int index) async {
     debugPrint("GET FILE [$index] : ");
     final directory = await getApplicationDocumentsDirectory();
-    debugPrint((jsonDecode(
-            await (await Directory(directory.path).list().toList())
-                .whereType<File>()
-                .elementAt(index)
-                .readAsString()))
-        .toString());
+    var stringToDisplay =
+        await (await Directory(directory.path).list().toList())
+            .whereType<File>()
+            .elementAt(index)
+            .readAsString();
+
+    PrettyJsonDisplay.prettyPrintJson(stringToDisplay);
   }
 
   static void deleteFileByIndex(int index) async {

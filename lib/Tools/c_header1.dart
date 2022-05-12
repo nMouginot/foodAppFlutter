@@ -1,5 +1,6 @@
 // ignore_for_file: non_constant_identifier_names
 import 'package:flutter/material.dart';
+import 'package:flutter_food_app/utils/uicolors.dart';
 
 Container c_header1(IconData icon, String text,
     {required BuildContext context}) {
@@ -10,7 +11,7 @@ Container c_header1(IconData icon, String text,
           const SizedBox(height: 20),
           Icon(
             icon,
-            color: Theme.of(context).colorScheme.secondary,
+            color: blue11,
             size: 35,
           ),
           const SizedBox(

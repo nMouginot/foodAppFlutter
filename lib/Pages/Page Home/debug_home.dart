@@ -3,6 +3,7 @@ import 'package:flutter_food_app/CustomsComponents/cc_text.dart';
 import 'package:flutter_food_app/Pages/Page%20Options/main_options.dart';
 import 'package:flutter_food_app/Pages/Page%20Quiz/QuizShardedPage/create_quiz.dart';
 import 'package:flutter_food_app/Pages/Page%20Quiz/QuizTraining/list_training_quiz.dart';
+import 'package:flutter_food_app/Pages/Page%20Quiz/module_handler.dart';
 import 'package:flutter_food_app/Pages/Page%20Quiz/quiz_handler.dart';
 import 'package:flutter_food_app/Pages/Page%20Quiz/testpage.dart';
 
@@ -18,7 +19,7 @@ class _DebugHomeState extends State<DebugHome> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Home"),
+        title: const Text("Debug home"),
       ),
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
@@ -79,12 +80,16 @@ class _DebugHomeState extends State<DebugHome> {
             child: ccText("Local Files"),
           ),
           ElevatedButton(
-            onPressed: () => {QuizHandler.getFileJsonTextDebug(2)},
+            onPressed: () => {QuizHandler.getFileJsonTextDebug(10)},
             child: ccText("Content of file"),
           ),
           ElevatedButton(
-            onPressed: () => {QuizHandler.deleteFileByIndex(-1)},
+            onPressed: () => {QuizHandler.deleteFileByIndex(10)},
             child: ccText("Delete file by index"),
+          ),
+          ElevatedButton(
+            onPressed: () => {ModuleHandler.test()},
+            child: ccText("Generate Mfile"),
           ),
         ],
       ),

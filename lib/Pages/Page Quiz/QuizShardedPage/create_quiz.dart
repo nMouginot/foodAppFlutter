@@ -3,8 +3,9 @@ import 'package:flutter_food_app/Mock%20Data/Matiere.dart';
 import 'package:flutter_food_app/Mock%20Data/Niveaux.dart';
 import 'package:flutter_food_app/Pages/Page%20Quiz/QuizTraining/create_quiz_training_questions.dart';
 import 'package:flutter_food_app/Pages/Page%20Quiz/quiz_handler.dart';
-import 'package:flutter_food_app/Tools/c_divider1.dart';
 import 'package:flutter_food_app/Tools/c_header1.dart';
+import 'package:flutter_food_app/utils/dimension.dart';
+import 'package:flutter_food_app/utils/uicolors.dart';
 
 class CreateQuiz extends StatelessWidget {
   //#region Variables & constructor
@@ -84,88 +85,99 @@ class CreateQuiz extends StatelessWidget {
 //#region build
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text("Créer un quiz"),
-      ),
-      body: SingleChildScrollView(
-        child: Container(
-          margin: const EdgeInsets.fromLTRB(20, 0, 20, 0),
-          child: Form(
-            key: _formKey,
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: <Widget>[
-                Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    c_header1(Icons.ballot_sharp, "Informations générique",
-                        context: context),
-                    c_divider1(),
-                  ],
-                ),
-                const SizedBox(height: 20),
-                TextFormField(
-                    controller: quizNomController,
-                    decoration: const InputDecoration(
-                        border: UnderlineInputBorder(),
-                        labelText: 'Nom du quiz'),
-                    validator: validatorQuizName),
-                const SizedBox(height: 40),
-                Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text("Matiere",
-                        style: Theme.of(context).textTheme.headline4),
-                    DropdownButtonFormField<String>(
-                        value: dropdownMatiereValue,
-                        items: dropdownMatieresItems,
-                        onChanged: (e) => matiereDropdown(e)),
-                  ],
-                ),
-                const SizedBox(height: 40),
-                Column(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text("Niveau",
-                          style: Theme.of(context).textTheme.headline4),
-                      DropdownButtonFormField<String>(
-                          value: dropdownNiveauValue,
-                          items: dropdownNiveauItems,
-                          onChanged: (e) => niveauDropdown(e)),
-                    ]),
-                const SizedBox(height: 40),
-                TextFormField(
-                    controller: quizTimerController,
-                    keyboardType: TextInputType.number,
-                    decoration: const InputDecoration(
-                        border: UnderlineInputBorder(),
-                        labelText: 'Temps entre les questions (Secondes)'),
-                    validator: validatorQuizTimer),
-                // TODO ToogleButton utilisable pour autre chose ?
-                // ToggleButtons(children: <Widget>[
-                //   Container(
-                //       padding: const EdgeInsets.all(10),
-                //       child: const Text("Quiz entrainement")),
-                //   Container(
-                //       padding: const EdgeInsets.all(10),
-                //       child: const Text("Quiz noté")),
-                // ], isSelected: const [
-                //   true,
-                //   false
-                // ]),
-                const SizedBox(height: 40),
-                ElevatedButton(
-                    onPressed: () async => {saveNewQuiz(context)},
-                    child: const Text("Ajouter les questions")),
-              ],
-            ),
+    return LayoutBuilder(builder: (BuildContext context, BoxConstraints view) {
+      return Scaffold(
+        appBar: AppBar(
+          elevation: 5.0,
+          automaticallyImplyLeading: false,
+          centerTitle: true,
+          backgroundColor: white,
+          title: Text(
+            "Création de quiz",
+            style: TextStyle(
+                color: black,
+                fontSize: size18,
+                fontFamily: "Saira",
+                fontWeight: FontWeight.w400),
           ),
         ),
-      ),
-    );
+        body: Stack(children: [
+          Container(
+            width: double.infinity,
+            height: double.infinity,
+            child: Image.asset(
+              "assets/images/screen_bg.png",
+              fit: BoxFit.cover,
+            ),
+          ),
+          SingleChildScrollView(
+            child: Container(
+              margin: const EdgeInsets.fromLTRB(20, 0, 20, 0),
+              child: Form(
+                key: _formKey,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: <Widget>[
+                    Column(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        c_header1(Icons.ballot_sharp, "Informations génériques",
+                            context: context),
+                      ],
+                    ),
+                    const SizedBox(height: 20),
+                    TextFormField(
+                        controller: quizNomController,
+                        decoration: const InputDecoration(
+                            border: UnderlineInputBorder(),
+                            labelText: 'Nom du quiz'),
+                        validator: validatorQuizName),
+                    const SizedBox(height: 40),
+                    Column(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text("Matiere",
+                            style: Theme.of(context).textTheme.headline5),
+                        DropdownButtonFormField<String>(
+                            value: dropdownMatiereValue,
+                            items: dropdownMatieresItems,
+                            onChanged: (e) => matiereDropdown(e)),
+                      ],
+                    ),
+                    const SizedBox(height: 40),
+                    Column(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text("Niveau",
+                              style: Theme.of(context).textTheme.headline5),
+                          DropdownButtonFormField<String>(
+                              value: dropdownNiveauValue,
+                              items: dropdownNiveauItems,
+                              onChanged: (e) => niveauDropdown(e)),
+                        ]),
+                    const SizedBox(height: 40),
+                    TextFormField(
+                        controller: quizTimerController,
+                        keyboardType: TextInputType.number,
+                        decoration: const InputDecoration(
+                            border: UnderlineInputBorder(),
+                            labelText: 'Temps entre les questions (Secondes)'),
+                        validator: validatorQuizTimer),
+                    const SizedBox(height: 40),
+                    ElevatedButton(
+                        style: ElevatedButton.styleFrom(primary: blue11),
+                        onPressed: () async => {saveNewQuiz(context)},
+                        child: const Text("Ajouter les questions")),
+                  ],
+                ),
+              ),
+            ),
+          ),
+        ]),
+      );
+    });
   }
   //#endregion
 

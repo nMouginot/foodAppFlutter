@@ -17,25 +17,26 @@ class _LanguageListState extends State<LanguageList> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(title: const Text("Options")),
-        body: ListView.builder(
-            padding: const EdgeInsets.all(10),
-            itemCount: _langues.length,
-            itemBuilder: (context, index) {
-              return (_langues[index].selected)
-                  ? Card(
-                      child: ListTile(
-                          title: Text(_langues[index].value),
-                          trailing: const Icon(Icons.check)))
-                  : Card(
-                      child: ListTile(
-                      title: Text(_langues[index].value),
-                      onTap: () {
-                        Navigator.of(context).pop();
-                        // TODO : Changer la langue en fonction de celle qui a été nouvellement selectionné. (Stockage local json fichier "settings.json", parametre : selectedLanguage.)
-                      },
-                    ));
-            }));
+      appBar: AppBar(title: const Text("Options")),
+      body: ListView.builder(
+          padding: const EdgeInsets.all(10),
+          itemCount: _langues.length,
+          itemBuilder: (context, index) {
+            return (_langues[index].selected)
+                ? Card(
+                    child: ListTile(
+                        title: Text(_langues[index].value),
+                        trailing: const Icon(Icons.check)))
+                : Card(
+                    child: ListTile(
+                    title: Text(_langues[index].value),
+                    onTap: () {
+                      Navigator.of(context).pop();
+                      // TODO : Changer la langue en fonction de celle qui a été nouvellement selectionné. (Stockage local json fichier "settings.json", parametre : selectedLanguage.)
+                    },
+                  ));
+          }),
+    );
   }
 }
 
