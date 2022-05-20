@@ -1,4 +1,5 @@
-// // ignore_for_file: file_names
+// ignore_for_file: file_names
+
 // import "package:json_annotation/json_annotation.dart";
 // import 'package:flutter_food_app/Model/Quiz.dart';
 // part "QuizTrainingResult.g.dart";

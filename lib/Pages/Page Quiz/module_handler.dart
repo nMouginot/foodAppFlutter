@@ -3,10 +3,7 @@ import 'dart:convert';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_food_app/Model/MainModule.dart';
 import 'package:flutter_food_app/Model/ModuleId.dart';
-import 'package:flutter_food_app/Model/ModuleQuiz.dart';
-import 'package:flutter_food_app/Model/QuizWithoutQuestions.dart';
 import 'package:path_provider/path_provider.dart';
-import 'package:flutter_food_app/Model/Quiz.dart';
 import 'package:http/http.dart' as http;
 
 /* Ressources : 

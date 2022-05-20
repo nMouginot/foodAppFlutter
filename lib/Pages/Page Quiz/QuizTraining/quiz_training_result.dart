@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:flutter_food_app/Pages/Page%20Home/main_home.dart';
 import 'package:flutter_food_app/utils/dimension.dart';
 import 'package:flutter_food_app/utils/strings.dart';
 import 'package:flutter_food_app/utils/uicolors.dart';
@@ -111,6 +109,7 @@ class _QuizTrainingResultState extends State<QuizTrainingResult> {
       return Scaffold(
         body: Stack(
           children: [
+            // ignore: sized_box_for_whitespace
             Container(
               width: view.maxWidth,
               height: view.maxHeight,

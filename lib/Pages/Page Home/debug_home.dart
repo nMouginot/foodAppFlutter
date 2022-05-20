@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_food_app/CustomsComponents/cc_text.dart';
+import 'package:flutter_food_app/Model/QuizFilters.dart';
 import 'package:flutter_food_app/Pages/Page%20Options/main_options.dart';
 import 'package:flutter_food_app/Pages/Page%20Quiz/QuizShardedPage/create_quiz.dart';
-import 'package:flutter_food_app/Pages/Page%20Quiz/QuizTraining/list_training_quiz.dart';
+import 'package:flutter_food_app/Pages/Page%20Quiz/QuizShardedPage/list_quiz.dart';
 import 'package:flutter_food_app/Pages/Page%20Quiz/module_handler.dart';
 import 'package:flutter_food_app/Pages/Page%20Quiz/quiz_handler.dart';
 import 'package:flutter_food_app/Pages/Page%20Quiz/testpage.dart';
@@ -43,29 +44,20 @@ class _DebugHomeState extends State<DebugHome> {
           ElevatedButton(
             onPressed: () => {
               Navigator.of(context).push(MaterialPageRoute(
-                  builder: (context) => const ListTrainingQuiz()))
+                  builder: (context) => ListQuiz(quizFilters: QuizFilters())))
             },
-            child: ccText("List training quiz"),
+            child: ccText("List quiz"),
           ),
           ElevatedButton(
-            onPressed: () => {
-              Navigator.of(context).push(MaterialPageRoute(
-                  builder: (context) => const ListTrainingQuiz()))
-            },
+            onPressed: () => {},
             child: ccText("List evaluation quiz"),
           ),
           ElevatedButton(
-            onPressed: () => {
-              Navigator.of(context).push(MaterialPageRoute(
-                  builder: (context) => const ListTrainingQuiz()))
-            },
+            onPressed: () => {},
             child: ccText("List quiz to correct"),
           ),
           ElevatedButton(
-            onPressed: () => {
-              Navigator.of(context).push(MaterialPageRoute(
-                  builder: (context) => const ListTrainingQuiz()))
-            },
+            onPressed: () => {},
             child: ccText("Open payement"),
           ),
           ElevatedButton(

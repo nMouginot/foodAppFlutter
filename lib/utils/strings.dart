@@ -12,7 +12,7 @@ String usernameTextFieldText = "Username";
 String passwordTextFieldText = "Password";
 String forgotPasswordText = "Forgot password?";
 String dontHaveAccountText = "Don’t have an account?";
-String RegisterText = "Register Now";
+String registerText = "Register Now";
 
 // SignUp Screen 1
 String signUpSmallText = "Sign Up";

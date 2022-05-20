@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_food_app/Model/MainModule.dart';
+import 'package:flutter_food_app/Pages/Page%20Quiz/QuizMainModule/list_module.dart';
 import 'package:flutter_food_app/Pages/Page%20Quiz/module_handler.dart';
 import 'package:flutter_food_app/utils/dimension.dart';
 import 'package:flutter_food_app/utils/strings.dart';
@@ -42,7 +43,10 @@ class _ListMainModuleState extends State<ListMainModule> {
                   onTap: () {
                     setState(() {
                       // TODO navigation to listModule
-                      // Navigator.push(context, MaterialPageRoute(builder: (context) => ModuleScreen1()));
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => ListModule()));
                     });
                   },
                   child: Container(
@@ -122,7 +126,7 @@ class _ListMainModuleState extends State<ListMainModule> {
                                     fontWeight: FontWeight.w400),
                               ),
                               Text(
-                                "${module} Modules",
+                                "$module Modules",
                                 style: TextStyle(
                                     color: grey11,
                                     fontSize: size16,
@@ -137,7 +141,7 @@ class _ListMainModuleState extends State<ListMainModule> {
                             animation: true,
                             percent: (percentage / 100),
                             center: Text(
-                              "${percentage}%",
+                              "$percentage%",
                               style: TextStyle(
                                   color: black,
                                   fontSize: size16,

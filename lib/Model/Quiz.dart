@@ -1,6 +1,5 @@
 // ignore_for_file: file_names
 import 'package:flutter_food_app/Model/QuizWithoutQuestions.dart';
-
 import "QuizQuestion.dart";
 import "package:json_annotation/json_annotation.dart";
 part "Quiz.g.dart";
@@ -13,7 +12,7 @@ class Quiz {
   late final String niveau; // Niveau scolaire du quiz
   late final String matiere; // Matiere du quiz
   late final int coefficient; // Coefficient du quiz
-  late final bool isTraining; // Quiz d"entrainement ou noté
+  late final bool isTraining; // Quiz d'entrainement ou noté
   late final int timerQuiz; // temps en seconde pour une question du quiz
   late final List<Question> questions; // Liste des questions du quiz
   late DateTime creationDate = DateTime

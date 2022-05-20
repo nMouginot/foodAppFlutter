@@ -4,16 +4,19 @@ import 'package:flutter_food_app/Model/Quiz.dart';
 import 'package:flutter_food_app/Model/QuizWithoutQuestions.dart';
 import 'package:flutter_food_app/Pages/Page%20Quiz/quiz_handler.dart';
 
-class CreateQuizQuestion extends StatefulWidget {
-  const CreateQuizQuestion({Key? key, required this.quizId}) : super(key: key);
+class CreateQuizTrainingQuestion extends StatefulWidget {
+  const CreateQuizTrainingQuestion({Key? key, required this.quizId})
+      : super(key: key);
 
   final int quizId;
 
   @override
-  State<CreateQuizQuestion> createState() => _CreateQuizQuestionState();
+  State<CreateQuizTrainingQuestion> createState() =>
+      _CreateQuizTrainingQuestionState();
 }
 
-class _CreateQuizQuestionState extends State<CreateQuizQuestion> {
+class _CreateQuizTrainingQuestionState
+    extends State<CreateQuizTrainingQuestion> {
   late List<Question> questionList = List<Question>.empty(growable: true);
 
   final _formKey = GlobalKey<FormState>();

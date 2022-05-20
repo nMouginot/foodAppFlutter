@@ -1,27 +1,27 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_food_app/Mock%20Data/Matiere.dart';
 import 'package:flutter_food_app/Mock%20Data/Niveaux.dart';
+import 'package:flutter_food_app/Pages/Page%20Quiz/QuizTraining/create_quiz_graded_questions.dart';
 import 'package:flutter_food_app/Pages/Page%20Quiz/QuizTraining/create_quiz_training_questions.dart';
+import 'package:flutter_food_app/Pages/Page%20Quiz/QuizTraining/quiz_training.dart';
 import 'package:flutter_food_app/Pages/Page%20Quiz/quiz_handler.dart';
 import 'package:flutter_food_app/Tools/c_header1.dart';
 import 'package:flutter_food_app/utils/dimension.dart';
 import 'package:flutter_food_app/utils/uicolors.dart';
 
-class CreateQuiz extends StatelessWidget {
-  //#region Variables & constructor
-  final _formKey = GlobalKey<FormState>();
-
-  late String dropdownMatiereValue;
-  late List<DropdownMenuItem<String>> dropdownMatieresItems;
+class CreateQuiz extends StatefulWidget {
   final List<Matieres> _matieres = sample_data_matieres
       .map((json) => Matieres(value: json['matiere']))
       .toList();
 
-  late String dropdownNiveauValue;
-  late List<DropdownMenuItem<String>> dropdownNiveauItems;
   final List<Niveaux> _niveaux = sample_data_niveaux
       .map((json) => Niveaux(value: json['niveau']))
       .toList();
+
+  late String dropdownMatiereValue;
+  late List<DropdownMenuItem<String>> dropdownMatieresItems;
+  late String dropdownNiveauValue;
+  late List<DropdownMenuItem<String>> dropdownNiveauItems;
 
   CreateQuiz({Key? key}) : super(key: key) {
     dropdownMatiereValue = _matieres[0].value;
@@ -34,21 +34,32 @@ class CreateQuiz extends StatelessWidget {
         .map((e) => DropdownMenuItem(child: Text(e.value), value: e.value))
         .toList();
   }
-  //#endregion
+
+  @override
+  State<CreateQuiz> createState() => _CreateQuizState();
+}
+
+class _CreateQuizState extends State<CreateQuiz> {
+  final _formKey = GlobalKey<FormState>();
+
+  bool quizIstraining = true;
 
   String matiereSelected = "";
+
   String niveauSelected = "";
+
   TextEditingController quizNomController = TextEditingController();
+
   TextEditingController quizTimerController = TextEditingController();
 
   void matiereDropdown(String? textSelected) {
     matiereSelected =
-        (textSelected != null) ? textSelected : dropdownMatiereValue;
+        (textSelected != null) ? textSelected : widget.dropdownMatiereValue;
   }
 
   void niveauDropdown(String? textSelected) {
     niveauSelected =
-        (textSelected != null) ? textSelected : dropdownNiveauValue;
+        (textSelected != null) ? textSelected : widget.dropdownNiveauValue;
   }
 
 // Lors du clic sur le bouton de validation, vérifie que tous les validator sont bon puis enregistre le PDF sur le serveur et en local.
@@ -56,28 +67,33 @@ class CreateQuiz extends StatelessWidget {
     // Validate returns true if the form is valid, or false otherwise.
     if (_formKey.currentState!.validate()) {
       if (matiereSelected.isEmpty) {
-        matiereSelected = dropdownMatiereValue;
+        matiereSelected = widget.dropdownMatiereValue;
       }
       if (niveauSelected.isEmpty) {
-        niveauSelected = dropdownNiveauValue;
+        niveauSelected = widget.dropdownNiveauValue;
       }
 
       int addedQuizId = await QuizHandler.addQuizToQinvWithGeneratedId(
           coefficient: 1,
           creationDate: DateTime.now(),
-          isTraining: true,
+          isTraining: quizIstraining,
           matiere: matiereSelected,
           name: quizNomController.value.text,
           niveau: niveauSelected,
           timerQuiz: int.parse(quizTimerController.value.text));
 
-      if (true) {
-        // TODO Modifier le true de ce if par la valeur d'un bouton (A ajouter a la page) pour choisir si le quiz est en mode training ou graded.
+      if (quizIstraining) {
+        // Le pop permet de sortir cette page de la pile de navigation avant de passer sur la page de création des questions. Cela permet de faire un retour sur le page home directement.
         Navigator.of(context).pop();
         Navigator.of(context).push(MaterialPageRoute(
-            builder: (context) => CreateQuizQuestion(quizId: addedQuizId)));
+            builder: (context) =>
+                CreateQuizTrainingQuestion(quizId: addedQuizId)));
       } else {
-        // TODO navigation vers la future page pour les graded quiz
+        // Le pop permet de sortir cette page de la pile de navigation avant de passer sur la page de création des questions. Cela permet de faire un retour sur le page home directement.
+        Navigator.of(context).pop();
+        Navigator.of(context).push(MaterialPageRoute(
+            builder: (context) =>
+                CreateQuizGradedQuestion(quizId: addedQuizId)));
       }
     }
   }
@@ -140,8 +156,8 @@ class CreateQuiz extends StatelessWidget {
                         Text("Matiere",
                             style: Theme.of(context).textTheme.headline5),
                         DropdownButtonFormField<String>(
-                            value: dropdownMatiereValue,
-                            items: dropdownMatieresItems,
+                            value: widget.dropdownMatiereValue,
+                            items: widget.dropdownMatieresItems,
                             onChanged: (e) => matiereDropdown(e)),
                       ],
                     ),
@@ -153,8 +169,8 @@ class CreateQuiz extends StatelessWidget {
                           Text("Niveau",
                               style: Theme.of(context).textTheme.headline5),
                           DropdownButtonFormField<String>(
-                              value: dropdownNiveauValue,
-                              items: dropdownNiveauItems,
+                              value: widget.dropdownNiveauValue,
+                              items: widget.dropdownNiveauItems,
                               onChanged: (e) => niveauDropdown(e)),
                         ]),
                     const SizedBox(height: 40),
@@ -165,7 +181,29 @@ class CreateQuiz extends StatelessWidget {
                             border: UnderlineInputBorder(),
                             labelText: 'Temps entre les questions (Secondes)'),
                         validator: validatorQuizTimer),
-                    const SizedBox(height: 40),
+                    const SizedBox(height: 20),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text("Quiz noté",
+                            style: Theme.of(context).textTheme.bodyText1),
+                        Switch(
+                          value: quizIstraining,
+                          onChanged: (value) {
+                            setState(() {
+                              quizIstraining = !quizIstraining;
+                            });
+                          },
+                          activeTrackColor: Colors.lightGreenAccent,
+                          activeColor: Colors.green,
+                          inactiveTrackColor: Colors.red[200],
+                          inactiveThumbColor: Colors.red,
+                        ),
+                        Text("Quiz d'entrainement",
+                            style: Theme.of(context).textTheme.bodyText1),
+                      ],
+                    ),
+                    const SizedBox(height: 20),
                     ElevatedButton(
                         style: ElevatedButton.styleFrom(primary: blue11),
                         onPressed: () async => {saveNewQuiz(context)},
@@ -179,9 +217,8 @@ class CreateQuiz extends StatelessWidget {
       );
     });
   }
-  //#endregion
 
-//#region Validator
+  //#endregion
   String? validatorQuizName(String? value) {
     if (value == null || value.isEmpty) {
       return 'Please enter some text';
@@ -203,5 +240,4 @@ class CreateQuiz extends StatelessWidget {
     }
     return null;
   }
-//#endregion
 }

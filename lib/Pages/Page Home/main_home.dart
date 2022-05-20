@@ -1,15 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_food_app/Model/QuizFilters.dart';
 import 'package:flutter_food_app/Pages/Page%20Home/debug_home.dart';
 import 'package:flutter_food_app/Pages/Page%20Quiz/QuizMainModule/create_mainmodule.dart';
 import 'package:flutter_food_app/Pages/Page%20Quiz/QuizMainModule/list_mainmodule.dart';
 import 'package:flutter_food_app/Pages/Page%20Quiz/QuizShardedPage/create_quiz.dart';
-import 'package:flutter_food_app/Pages/Page%20Quiz/QuizTraining/list_training_quiz.dart';
-import 'package:flutter_food_app/Pages/Page%20Quiz/QuizTraining/quiz_training_result.dart';
-import 'package:flutter_food_app/Pages/Page%20Quiz/module_handler.dart';
-import 'package:flutter_food_app/Pages/Page%20Quiz/quiz_handler.dart';
+import 'package:flutter_food_app/Pages/Page%20Quiz/QuizShardedPage/list_quiz.dart';
 import 'package:flutter_food_app/Tools/c_homeCard1.dart';
 import '../../utils/dimension.dart';
-import '../../utils/strings.dart';
 import '../../utils/uicolors.dart';
 
 class Home extends StatefulWidget {
@@ -45,14 +42,17 @@ class _HomeState extends State<Home> {
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
                 GestureDetector(
-                  onTap: () => Navigator.of(context).push(
-                      MaterialPageRoute(builder: (context) => CreateQuiz())),
+                  onTap: () => {
+                    Navigator.of(context).push(
+                        MaterialPageRoute(builder: (context) => CreateQuiz())),
+                  },
                   child: c_homeCard1("Créer un quiz", "Sub text",
                       "assets/images/placeholder.png"),
                 ),
                 GestureDetector(
                   onTap: () => Navigator.of(context).push(MaterialPageRoute(
-                      builder: (context) => const ListTrainingQuiz())),
+                      builder: (context) =>
+                          ListQuiz(quizFilters: QuizFilters()))),
                   child: c_homeCard1("Liste des quiz", "Sub text 2",
                       "assets/images/placeholder.png"),
                 ),

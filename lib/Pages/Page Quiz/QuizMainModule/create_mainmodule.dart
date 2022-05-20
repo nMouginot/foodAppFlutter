@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_food_app/Model/MainModule.dart';
 import 'package:flutter_food_app/Model/ModuleId.dart';
 import 'package:flutter_food_app/Model/QuizWithoutQuestions.dart';
 import 'package:flutter_food_app/Pages/Page%20Quiz/QuizMainModule/list_select_quiz.dart';
@@ -8,7 +7,7 @@ import 'package:flutter_food_app/utils/dimension.dart';
 import 'package:flutter_food_app/utils/uicolors.dart';
 
 class CreateMainModule extends StatefulWidget {
-  CreateMainModule({Key? key}) : super(key: key);
+  const CreateMainModule({Key? key}) : super(key: key);
 
   @override
   State<CreateMainModule> createState() => _CreateMainModuleState();
@@ -48,7 +47,7 @@ class _CreateMainModuleState extends State<CreateMainModule> {
     );
 
     if (modules.any((element) => element.id == quiz.id)) {
-      print("Il y a déjà un module avec cet id d'ajouté");
+      debugPrint("Il y a déjà un module avec cet id d'ajouté");
     } else {
       setState(() {
         modules.add(ModuleId(id: quiz.id, type: ModuleType.quiz));
@@ -77,6 +76,7 @@ class _CreateMainModuleState extends State<CreateMainModule> {
           ),
         ),
         body: Stack(children: [
+          // ignore: sized_box_for_whitespace
           Container(
             width: double.infinity,
             height: double.infinity,
