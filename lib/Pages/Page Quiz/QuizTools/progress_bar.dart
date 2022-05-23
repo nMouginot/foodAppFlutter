@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_food_app/Model/QuizQuestion.dart';
 import 'package:flutter_food_app/utils/constants.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 class ProgressBar extends StatefulWidget {
   final int timer;
-  final Function(int) callback;
+  final Function(String) callback;
 
   const ProgressBar({Key? key, required this.timer, required this.callback})
       : super(key: key);
@@ -16,7 +17,7 @@ class ProgressBar extends StatefulWidget {
 class _ProgressBarState extends State<ProgressBar>
     with TickerProviderStateMixin {
   late AnimationController controller;
-  final Function(int) callback;
+  final Function(String) callback;
   _ProgressBarState({required this.callback});
 
   @override
@@ -30,7 +31,7 @@ class _ProgressBarState extends State<ProgressBar>
       })
       ..addStatusListener((status) {
         if (status == AnimationStatus.completed) {
-          callback(-2);
+          callback("-2");
         }
       });
 
@@ -80,7 +81,7 @@ class _ProgressBarState extends State<ProgressBar>
                     ),
                     SvgPicture.asset(
                       "assets/clock.svg",
-                      color: Colors.white,
+                      color: Colors.black,
                     ),
                   ],
                 ),

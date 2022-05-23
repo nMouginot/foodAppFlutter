@@ -73,29 +73,39 @@ class _CreateQuizTrainingQuestionState
         () {
           questionList.add(
             Question(
-                id: Question.getNewUniqueId(questionList),
-                idSorting: questionList.length + 1,
-                question:
-                    "Q${questionList.length + 1}: ${textControllerQuestion.text}",
-                //
-                answersDisplay: // √ est le symbole pour la racine carré :D (alt code = 251)
-                    "${(correctAnswer1) ? "√" : "  "} R1: ${(textControllerAnswer1.text.isNotEmpty) ? textControllerAnswer1.text : "---"}\n"
-                    "${(correctAnswer2) ? "√" : "  "} R2: ${(textControllerAnswer2.text.isNotEmpty) ? textControllerAnswer2.text : "---"}\n"
-                    "${(correctAnswer3) ? "√" : "  "} R3: ${(textControllerAnswer3.text.isNotEmpty) ? textControllerAnswer3.text : "---"}\n"
-                    "${(correctAnswer4) ? "√" : "  "} R4: ${(textControllerAnswer4.text.isNotEmpty) ? textControllerAnswer4.text : "---"}",
-                //
-                answer1: (textControllerAnswer1.text.isNotEmpty) ? textControllerAnswer1.text : "---",
-                answer2: (textControllerAnswer2.text.isNotEmpty) ? textControllerAnswer2.text : "---",
-                answer3: (textControllerAnswer3.text.isNotEmpty) ? textControllerAnswer3.text : "---",
-                answer4: (textControllerAnswer4.text.isNotEmpty) ? textControllerAnswer4.text : "---",
-                answerTextFromUser: "",
-                //
-                correctAnswers: [
-                  correctAnswer1,
-                  correctAnswer2,
-                  correctAnswer3,
-                  correctAnswer4
-                ]),
+              id: Question.getNewUniqueId(questionList),
+              idSorting: questionList.length + 1,
+              question:
+                  "Q${questionList.length + 1}: ${textControllerQuestion.text}",
+              //
+              answersDisplay: // √ est le symbole pour la racine carré :D (alt code = 251)
+                  "${(correctAnswer1) ? "√" : "  "} R1: ${(textControllerAnswer1.text.isNotEmpty) ? textControllerAnswer1.text : "---"}\n"
+                  "${(correctAnswer2) ? "√" : "  "} R2: ${(textControllerAnswer2.text.isNotEmpty) ? textControllerAnswer2.text : "---"}\n"
+                  "${(correctAnswer3) ? "√" : "  "} R3: ${(textControllerAnswer3.text.isNotEmpty) ? textControllerAnswer3.text : "---"}\n"
+                  "${(correctAnswer4) ? "√" : "  "} R4: ${(textControllerAnswer4.text.isNotEmpty) ? textControllerAnswer4.text : "---"}",
+              //
+              answer1: (textControllerAnswer1.text.isNotEmpty)
+                  ? textControllerAnswer1.text
+                  : "---",
+              answer2: (textControllerAnswer2.text.isNotEmpty)
+                  ? textControllerAnswer2.text
+                  : "---",
+              answer3: (textControllerAnswer3.text.isNotEmpty)
+                  ? textControllerAnswer3.text
+                  : "---",
+              answer4: (textControllerAnswer4.text.isNotEmpty)
+                  ? textControllerAnswer4.text
+                  : "---",
+              answerTextFromUser: "",
+              //
+              correctAnswers: [
+                correctAnswer1,
+                correctAnswer2,
+                correctAnswer3,
+                correctAnswer4
+              ],
+              userAnswers: [],
+            ),
           );
 
           cleanForm();

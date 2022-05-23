@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_food_app/Model/QuizWithoutQuestions.dart';
-import 'package:flutter_food_app/Pages/Page%20Quiz/QuizTraining/create_quiz_training_questions.dart';
 import 'package:flutter_food_app/Pages/Page%20Quiz/quiz_handler.dart';
-import 'package:flutter_food_app/Pages/Page%20Quiz/QuizTraining/quiz_training.dart';
 
 class ListSelectQuiz extends StatefulWidget {
   const ListSelectQuiz({Key? key}) : super(key: key);

@@ -66,7 +66,7 @@ class _HomeState extends State<Home> {
               children: [
                 GestureDetector(
                   onTap: () => Navigator.of(context).push(MaterialPageRoute(
-                      builder: (context) => CreateMainModule())),
+                      builder: (context) => const CreateMainModule())),
                   child: c_homeCard1("Créer un module", "Sub text",
                       "assets/images/placeholder.png"),
                 ),

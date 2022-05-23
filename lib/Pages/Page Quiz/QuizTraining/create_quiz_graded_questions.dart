@@ -48,20 +48,22 @@ class _CreateQuizTrainingQuestionState extends State<CreateQuizGradedQuestion> {
         () {
           questionList.add(
             Question(
-                id: Question.getNewUniqueId(questionList),
-                idSorting: questionList.length + 1,
-                question:
-                    "Q${questionList.length + 1}: ${textControllerQuestion.text}",
-                //
-                answersDisplay: "",
-                //
-                answer1: "",
-                answer2: "",
-                answer3: "",
-                answer4: "",
-                answerTextFromUser: "",
-                //
-                correctAnswers: []),
+              id: Question.getNewUniqueId(questionList),
+              idSorting: questionList.length + 1,
+              question:
+                  "Q${questionList.length + 1}: ${textControllerQuestion.text}",
+              //
+              answersDisplay: "",
+              //
+              answer1: "",
+              answer2: "",
+              answer3: "",
+              answer4: "",
+              answerTextFromUser: "",
+              //
+              correctAnswers: [],
+              userAnswers: [],
+            ),
           );
           cleanForm();
         },

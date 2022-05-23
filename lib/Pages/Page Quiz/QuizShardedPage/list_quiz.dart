@@ -3,10 +3,10 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_food_app/Model/QuizFilters.dart';
 import 'package:flutter_food_app/Model/QuizWithoutQuestions.dart';
+import 'package:flutter_food_app/Pages/Page%20Quiz/QuizShardedPage/play_quiz.dart';
 import 'package:flutter_food_app/Pages/Page%20Quiz/QuizShardedPage/list_quiz_filters.dart';
 import 'package:flutter_food_app/Pages/Page%20Quiz/QuizTraining/create_quiz_training_questions.dart';
 import 'package:flutter_food_app/Pages/Page%20Quiz/quiz_handler.dart';
-import 'package:flutter_food_app/Pages/Page%20Quiz/QuizTraining/quiz_training.dart';
 
 class ListQuiz extends StatefulWidget {
   ListQuiz({Key? key, required this.quizFilters}) : super(key: key);
@@ -28,10 +28,7 @@ class _ListQuizState extends State<ListQuiz> {
       // Navigate to Quiz
       if (quiz != null && quiz.isTraining == true) {
         Navigator.of(context).push(MaterialPageRoute(
-            builder: (context) => QuizTraining(parameterQuiz: quiz)));
-      } else if (quiz != null && quiz.isTraining == false) {
-        // TODO navigation quiz graded
-
+            builder: (context) => PlayQuiz(parameterQuiz: quiz)));
       } else {
         debugPrint("Quiz Training = null, can't navigate.");
       }
@@ -66,7 +63,7 @@ class _ListQuizState extends State<ListQuiz> {
           builder: (context) => ListQuizFilters(
                 quizFilters: widget.quizFilters,
               )),
-    ); //.then(onGoBack);
+    );
 
     setState(() {
       if (result != null) {
@@ -77,32 +74,31 @@ class _ListQuizState extends State<ListQuiz> {
     });
   }
 
-  FutureOr onGoBack(dynamic value) {
-    setState(() {});
-  }
-
   // Tri les quiz qui peuvent être afficher ou pas en fonction des filtres choisi
-  List<QuizWithoutQuestions> sortingQuiz(List<QuizWithoutQuestions>? quizList) {
-    if (quizList != null && quizList.isNotEmpty) {
-      List<QuizWithoutQuestions> sortedQuizList = quizList.toList();
+  List<QuizWithoutQuestions> sortingQuiz(
+      List<QuizWithoutQuestions>? allQuizList) {
+    if (allQuizList != null && allQuizList.isNotEmpty) {
+      List<QuizWithoutQuestions> sortedQuizList =
+          List<QuizWithoutQuestions>.empty(growable: true);
 
       // Filtre les quiz noté
-      if (!widget.quizFilters.isGraded) {
-        for (var i = 0; i < sortedQuizList.length; i++) {
-          if (sortedQuizList[i].isTraining == false) {
-            sortedQuizList.removeAt(i);
+      if (widget.quizFilters.isGraded) {
+        for (var quiz in allQuizList) {
+          if (quiz.isTraining == false) {
+            sortedQuizList.add(quiz);
           }
         }
       }
 
       // Filtre les quiz d'entrainement
-      if (!widget.quizFilters.isTraining) {
-        for (var i = 0; i < sortedQuizList.length; i++) {
-          if (sortedQuizList[i].isTraining == true) {
-            sortedQuizList.removeAt(i);
+      if (widget.quizFilters.isTraining) {
+        for (var quiz in allQuizList) {
+          if (quiz.isTraining == true) {
+            sortedQuizList.add(quiz);
           }
         }
       }
+
       return sortedQuizList;
     } else {
       return List<QuizWithoutQuestions>.empty();

@@ -3,8 +3,8 @@ import '../../../utils/constants.dart';
 import '../../../Model/QuizQuestion.dart';
 import '../QuizTools/color_question_option.dart';
 
-class QuestionCard extends StatelessWidget {
-  const QuestionCard(
+class QuestionTrainingCard extends StatelessWidget {
+  const QuestionTrainingCard(
       {Key? key,
       // it means we have to pass this
       required this.question,
@@ -14,9 +14,9 @@ class QuestionCard extends StatelessWidget {
 
   final Question question;
   final bool isAnswered;
-  final Function(int) callback;
+  final Function(String) callback;
 
-  void checkAns(int idSelected) {
+  void checkAns(String idSelected) {
     if (isAnswered == false) {
       callback(idSelected);
     }
@@ -49,7 +49,7 @@ class QuestionCard extends StatelessWidget {
               indexAnswerSelected: index,
               valideAnswers: question.correctAnswersText,
               answered: isAnswered,
-              press: () => checkAns(index),
+              press: () => checkAns((index.toString() + "*")),
             ),
           ),
         ],

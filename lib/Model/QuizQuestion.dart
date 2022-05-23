@@ -5,21 +5,39 @@ part "QuizQuestion.g.dart";
 // Pour générer le fichier complémentaire => flutter pub run build_runner build
 @JsonSerializable(explicitToJson: true)
 class Question {
-  final int id; // Identifiant unique du quiz
-  int idSorting; // Identifiant permettant de trier l'ordre des questions (Et donc, de les mélangés.) Il est aussi utiliser pour la génération du titre de la question
-  String question; // Texte de la question qui est actuellement enregister
-  String answer1; // Première réponse 1 possible à la question.
-  String answer2; // Deuxième réponse 2 possible à la question.
-  String answer3; // Troisième réponse 3 possible à la question.
-  String answer4; // Quatrième réponse 4 possible à la question.
-  String
-      answerTextFromUser; // Pour les quiz noté, permet à l'utilisateur de répondre sans avoir de réponse pré-existante. Si utilisé, answer1/2/3/4 sont vides.
-  String
-      answersDisplay; // Affichage des réponses dans les blocs sur la page de création de questions.
-  List<bool>
-      correctAnswers; // Liste de bool permetant de savoir quel question est juste. Toujours une liste de 4 normalement !
+  /// Identifiant unique du quiz
+  final int id;
 
-  // Suite de toute les réponses possible sous forme de tableau pour l'afficahge des cards sur la page question_training_card
+  /// Identifiant permettant de trier l'ordre des questions (Et donc, de les mélangés.) Il est aussi utiliser pour la génération du titre de la question
+  int idSorting;
+
+  /// Texte de la question qui est actuellement enregister
+  String question;
+
+  /// Première réponse 1 possible à la question.
+  String answer1;
+
+  /// Deuxième réponse 2 possible à la question.
+  String answer2;
+// Troisième réponse 3 possible à la question.
+  String answer3;
+
+// Quatrième réponse 4 possible à la question.
+  String answer4;
+
+  /// Affichage des réponses dans les blocs sur la page de création de questions.
+  String answersDisplay;
+
+  /// Liste de bool permetant de savoir quel question est juste. Toujours une liste de 4 !
+  List<bool> correctAnswers;
+
+  /// Pour les quiz noté, permet à l'utilisateur de répondre sans avoir de réponse pré-existante. Si utilisé, answer1/2/3/4 sont vides.
+  String answerTextFromUser;
+
+  /// Liste de bool permetant de savoir les réponses de l'utilisateurs. Toujours une liste de 4 !
+  List<bool> userAnswers;
+
+  /// Suite de toute les réponses possible sous forme de tableau pour l'affichage des cards sur la page question_training_card
   List<String> get answersGrouped => _computeAnswersGrouped();
   List<String> _computeAnswersGrouped() {
     List<String> result = List.empty(growable: true);
@@ -40,7 +58,7 @@ class Question {
     return result;
   }
 
-// Liste des bonnes réponse uniquements sous forme de texte pour simplifier les tests de validité.
+  /// Liste des bonnes réponse uniquements sous forme de texte pour simplifier les tests de validité.
   List<String> get correctAnswersText => _computeCorrectAnswersTextValue();
   _computeCorrectAnswersTextValue() {
     List<String> result = List.empty(growable: true);
@@ -77,7 +95,19 @@ class Question {
       required this.answer4,
       required this.answerTextFromUser,
       required this.answersDisplay,
-      required this.correctAnswers});
+      required this.correctAnswers,
+      required this.userAnswers});
+
+  @override
+  String toString() {
+    return "Question n°$id"
+        "\n  idSorting: $idSorting"
+        "\n  question: $question"
+        "\n  answerTextFromUser: $answerTextFromUser"
+        "\n  answersGrouped: $answersGrouped"
+        "\n  correctAnswers: $correctAnswers"
+        "\n  userAnswers: $userAnswers";
+  }
 
 // #region méthodes
   int numberOfAnswers() {
@@ -89,11 +119,19 @@ class Question {
     return result;
   }
 
+  /// Met la valeur par défaut dans tout les champs de réponse utilisateur de la question.
+  void resetQuestion() {
+    answerTextFromUser = "";
+    userAnswers = [false, false, false, false];
+  }
+
+  /// Supprime la question [item] de la liste [listItem]
   static void removeItem(List<Question> listItem, Question item) {
     listItem.removeWhere((Question currentItem) => item == currentItem);
     updateQuestionNumbers(listItem);
   }
 
+  /// Génère un nombre de questions équivalent au parametre [numberOfItems]
   static List<Question> generateQuestions(int numberOfItems) {
     return List<Question>.generate(numberOfItems, (int index) {
       return Question(
@@ -108,6 +146,7 @@ class Question {
         answersDisplay:
             "R1: Reponse possible ${index + 1}\nR2: Reponse possible ${index + 2}\nR3: Reponse possible ${index + 3}\nR4: Reponse possible ${index + 4}\n",
         correctAnswers: [false, true, false, false],
+        userAnswers: [false, true, false, false],
       );
     });
   }
@@ -123,6 +162,7 @@ class Question {
     }
   }
 
+  /// Permet d'obtenir un id unique qui n'est pas présent dans la liste [listQuestions]
   static int getNewUniqueId(List<Question> listQuestions) {
     int highestId = 1;
 
