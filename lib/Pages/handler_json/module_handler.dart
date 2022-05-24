@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_food_app/Model/MainModule.dart';
 import 'package:flutter_food_app/Model/ModuleId.dart';
+import 'package:flutter_food_app/Pages/handler_json/tool_handler.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:http/http.dart' as http;
 
@@ -18,27 +19,10 @@ class ModuleHandler {
   }
   ModuleHandler._internal();
 
-  // Fichier jsonfile contenant la liste de tout les Modules enregisté en local sur le telephone de l'utilisateur.
-  // ignore: non_constant_identifier_names
-  static String MInvFile = "MInv.json";
-
 // #region utils
-
-  // Récupère le fichier jsonFile enregistrer en local pour gérer les modules
-  static Future<File> _getMInvFile() async {
-    final directory = await getApplicationDocumentsDirectory();
-    var invFile = File("${directory.path}/$MInvFile");
-    if (await invFile.exists()) {
-      return invFile;
-    } else {
-      debugPrint("Fichier $MInvFile non existant.");
-      return await File("${directory.path}/$MInvFile").create();
-    }
-  }
-
   // Récupère les données présentes dans le fichier local de gestion des quizs
   static Future<List<MainModule>> getMInvValue() async {
-    var qInvFile = await _getMInvFile();
+    var qInvFile = await ToolHandler.getFile(JsonFile.modules);
     var qInvFileJsonData = await qInvFile.readAsString();
     if (qInvFileJsonData == "") {
       return List<MainModule>.empty(growable: true);
@@ -72,7 +56,7 @@ class ModuleHandler {
 
   static void test() async {
     // On récupère les mainModules déjà présents
-    var mInvFile = await _getMInvFile();
+    var mInvFile = await ToolHandler.getFile(JsonFile.modules);
     var allMainModule = await getMInvValue();
 
     final mockModules = List<ModuleId>.empty();
@@ -115,7 +99,7 @@ class ModuleHandler {
 
   static Future<int> _addMainModuleToMInv(MainModule mainModule) async {
     // On récupère les mainModules déjà présents
-    var mInvFile = await _getMInvFile();
+    var mInvFile = await ToolHandler.getFile(JsonFile.modules);
     var allMainModule = await getMInvValue();
 
     // On test si un mainModule n'a pas déjà cet id dans le stockage
@@ -154,7 +138,7 @@ class ModuleHandler {
 
   // Récupère les données présentes dans le fichier local de gestion des mainModules
   static Future<List<MainModule>> getInvValue() async {
-    var mInvFile = await _getMInvFile();
+    var mInvFile = await ToolHandler.getFile(JsonFile.modules);
     var mInvFileJsonData = await mInvFile.readAsString();
     if (mInvFileJsonData == "") {
       return List<MainModule>.empty(growable: true);

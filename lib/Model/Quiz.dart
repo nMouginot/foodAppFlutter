@@ -61,14 +61,35 @@ class Quiz {
   /// Affiche proprement le résultat du quiz sur 20 points.
   String get resultDisplayed => _computeResultDisplayed();
   String _computeResultDisplayed() {
-    result = (result / questions.length) * 20;
+    double resultDisplay = (result / questions.length) * 20;
 
     // Gère l'affichage des valeurs après la virgules en fonction de la note.
-    if (result.toString().split('.')[1] == "0") {
-      return result.toString().split('.')[0];
+    if (resultDisplay.toString().split('.')[1] == "0") {
+      return resultDisplay.toString().split('.')[0];
     } else {
-      return result.toStringAsFixed(2);
+      return resultDisplay.toStringAsFixed(2);
     }
+  }
+
+  Quiz.fromQuizChangeId(
+      {required this.id, required this.answerDate, required Quiz quiz}) {
+    name = quiz.name;
+    niveau = quiz.niveau;
+    matiere = quiz.matiere;
+    coefficient = quiz.coefficient;
+    isTraining = quiz.isTraining;
+    timerQuiz = quiz.timerQuiz;
+    skipped = quiz.skipped;
+    timeout = quiz.timeout;
+    userId = quiz.userId;
+    questions = quiz.questions;
+    creationDate = quiz.creationDate;
+    storageFileName = quiz.storageFileName;
+    result = quiz.result;
+    totalCorrectAnswers = quiz.totalCorrectAnswers;
+    totalWrongAnswers = quiz.totalWrongAnswers;
+
+    computeQuizResult();
   }
 
   Quiz(
@@ -91,6 +112,9 @@ class Quiz {
 
   /// Calcule les valeurs des parametres [result], [totalCorrectAnswers] et [totalWrongAnswers] en fonction des résultats présents dans la liste des questions.
   void computeQuizResult() {
+    result = 0;
+    totalCorrectAnswers = 0;
+    totalWrongAnswers = 0;
     for (var question in questions) {
       // TODO A modifier si l'on passe en multi réponses un jour.
       if (question.userAnswers[0] == question.correctAnswers[0] &&

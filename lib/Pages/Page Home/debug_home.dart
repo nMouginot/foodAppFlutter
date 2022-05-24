@@ -4,9 +4,9 @@ import 'package:flutter_food_app/Model/QuizFilters.dart';
 import 'package:flutter_food_app/Pages/Page%20Options/main_options.dart';
 import 'package:flutter_food_app/Pages/Page%20Quiz/QuizShardedPage/create_quiz.dart';
 import 'package:flutter_food_app/Pages/Page%20Quiz/QuizShardedPage/list_quiz.dart';
-import 'package:flutter_food_app/Pages/Page%20Quiz/module_handler.dart';
-import 'package:flutter_food_app/Pages/Page%20Quiz/quiz_handler.dart';
-import 'package:flutter_food_app/Pages/Page%20Quiz/testpage.dart';
+import 'package:flutter_food_app/Pages/handler_json/quiz_handler.dart';
+import 'package:flutter_food_app/Pages/handler_json/tool_handler.dart';
+import 'package:flutter_food_app/Pages/handler_json/user_result_handler.dart';
 
 class DebugHome extends StatefulWidget {
   const DebugHome({Key? key}) : super(key: key);
@@ -61,27 +61,20 @@ class _DebugHomeState extends State<DebugHome> {
             child: ccText("Open payement"),
           ),
           ElevatedButton(
-            onPressed: () => {
-              Navigator.of(context)
-                  .push(MaterialPageRoute(builder: (context) => const test()))
-            },
-            child: ccText("TEST PAGE"),
+            onPressed: () => {ToolHandler.getAllFileDebug()},
+            child: ccText("AFFICHER TOUT LES FICHIER LOCAUX"),
           ),
           ElevatedButton(
-            onPressed: () => {QuizHandler.getAllFileDebug()},
-            child: ccText("Local Files"),
+            onPressed: () => {ToolHandler.getFileContentDebug(2)},
+            child: ccText("CONTENU D'UN FICHIER PAR ID"),
           ),
           ElevatedButton(
-            onPressed: () => {QuizHandler.getFileJsonTextDebug(10)},
-            child: ccText("Content of file"),
+            onPressed: () => {QuizHandler.deleteFileByIndex(2)},
+            child: ccText("SUPPRESSION D'UN FICHIER PAR ID"),
           ),
           ElevatedButton(
-            onPressed: () => {QuizHandler.deleteFileByIndex(10)},
-            child: ccText("Delete file by index"),
-          ),
-          ElevatedButton(
-            onPressed: () => {ModuleHandler.test()},
-            child: ccText("Generate Mfile"),
+            onPressed: () => {print(UserResultHandler.getQuizResultById(1))},
+            child: ccText("get quiz by id"),
           ),
         ],
       ),

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_food_app/Model/ModuleId.dart';
 import 'package:flutter_food_app/Model/QuizWithoutQuestions.dart';
 import 'package:flutter_food_app/Pages/Page%20Quiz/QuizMainModule/list_select_quiz.dart';
-import 'package:flutter_food_app/Pages/Page%20Quiz/module_handler.dart';
+import 'package:flutter_food_app/Pages/handler_json/module_handler.dart';
 import 'package:flutter_food_app/utils/dimension.dart';
 import 'package:flutter_food_app/utils/uicolors.dart';
 

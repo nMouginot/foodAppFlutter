@@ -70,7 +70,6 @@ class _PlayQuizState extends State<PlayQuiz> {
     } else if (response == "-2") {
       currentQuiz.timeout++;
     } else {
-      print(response);
       if (response.contains("0*")) currentQuestion.userAnswers[0] = true;
       if (response.contains("1*")) currentQuestion.userAnswers[1] = true;
       if (response.contains("2*")) currentQuestion.userAnswers[2] = true;

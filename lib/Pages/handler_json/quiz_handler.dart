@@ -25,33 +25,6 @@ class QuizHandler {
   static String QInvFile = "QInv.json";
   static int lastAddedQuizId = 0;
 
-  // Affiche dans la console la liste de tout les fichiers présent dans l'emplacement de sauvegarde dédié de l'app.
-  static void getAllFileDebug() async {
-    debugPrint("GET ALL FILES DEBUG : ");
-    final directory = await getApplicationDocumentsDirectory();
-    int count = 0;
-
-    (await Directory(directory.path).list().toList())
-        .whereType<File>()
-        .forEach((element) {
-      debugPrint("Files[$count] : ${element.path}");
-      count++;
-    });
-  }
-
-  // Affiche dans la console la liste de tout les fichiers présent dans l'emplacement de sauvegarde dédié de l'app.
-  static void getFileJsonTextDebug(int index) async {
-    debugPrint("GET FILE [$index] : ");
-    final directory = await getApplicationDocumentsDirectory();
-    var stringToDisplay =
-        await (await Directory(directory.path).list().toList())
-            .whereType<File>()
-            .elementAt(index)
-            .readAsString();
-
-    PrettyJsonDisplay.prettyPrintJson(stringToDisplay);
-  }
-
   static void deleteFileByIndex(int index) async {
     final directory = await getApplicationDocumentsDirectory();
     final file = (await Directory(directory.path).list().toList())

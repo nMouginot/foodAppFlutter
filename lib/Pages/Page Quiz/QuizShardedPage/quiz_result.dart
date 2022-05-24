@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_food_app/Model/Quiz.dart';
+import 'package:flutter_food_app/Pages/handler_json/user_result_handler.dart';
 import 'package:flutter_food_app/utils/dimension.dart';
 import 'package:flutter_food_app/utils/strings.dart';
 import 'package:flutter_food_app/utils/uicolors.dart';
@@ -24,6 +25,10 @@ class _QuizResultState extends State<QuizResult> {
     // TODO stockage des résultats sur la bdd (plutôt sur la page de résult ?)
     // TODO Save les données !  => widget.userResult a parse json et stocker
 
+    //TODO Id de l'utilisateur à ajouter ! (donc modifier la ligne ci-dessous avec un vrai ID...)
+    widget.quizUserResult.userId = 1;
+
+    UserResultHandler.addNotedQuizWithGeneratedId(quiz: widget.quizUserResult);
     super.initState();
   }
 
