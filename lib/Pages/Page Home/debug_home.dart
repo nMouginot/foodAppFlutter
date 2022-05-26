@@ -65,11 +65,11 @@ class _DebugHomeState extends State<DebugHome> {
             child: ccText("AFFICHER TOUT LES FICHIER LOCAUX"),
           ),
           ElevatedButton(
-            onPressed: () => {ToolHandler.getFileContentDebug(2)},
+            onPressed: () => {ToolHandler.getFileContentDebug(4)},
             child: ccText("CONTENU D'UN FICHIER PAR ID"),
           ),
           ElevatedButton(
-            onPressed: () => {QuizHandler.deleteFileByIndex(2)},
+            onPressed: () => {QuizHandler.deleteFileByIndex(0)},
             child: ccText("SUPPRESSION D'UN FICHIER PAR ID"),
           ),
           ElevatedButton(

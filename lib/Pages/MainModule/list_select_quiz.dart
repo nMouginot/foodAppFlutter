@@ -13,6 +13,8 @@ class _ListSelectQuizState extends State<ListSelectQuiz> {
   void navigationBackWithIdQuiz(QuizWithoutQuestions? quiz) {
     if (quiz != null) {
       Navigator.pop(context, quiz);
+    } else {
+      Navigator.pop(context);
     }
   }
 

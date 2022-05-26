@@ -226,6 +226,7 @@ class _CreateQuizTrainingQuestionState
 
     Quiz quizToAdd = Quiz(
       id: quizId,
+      quizId: quizId,
       name: quizInfoValidated.name,
       coefficient: quizInfoValidated.coefficient,
       isTraining: quizInfoValidated.isTraining,

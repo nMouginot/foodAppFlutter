@@ -395,8 +395,9 @@ class _QuizResultState extends State<QuizResult> {
                   height: size20,
                 ),
                 GestureDetector(
-                    onTap: () => Navigator.popUntil(context,
-                        ModalRoute.withName(Navigator.defaultRouteName)),
+                    // onTap: () => Navigator.popUntil(context,
+                    //     ModalRoute.withName(Navigator.defaultRouteName)),
+                    onTap: () => Navigator.pop(context),
                     child: ansData("Retour",
                         "assets/images/icons/back_arrow_1.png", true)),
                 SizedBox(

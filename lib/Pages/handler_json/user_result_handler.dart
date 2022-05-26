@@ -79,7 +79,7 @@ class UserResultHandler {
     return quiz.id;
   }
 
-  // Retourne le résultat du quiz si il y en a un ou null si le fichier du quiz n'est pas existant ou que l'id n'est pas existant.
+  /// Retourne le résultat du quiz si il y en a un ou null si le fichier du quiz n'est pas existant ou que l'[id] n'est pas existant.
   static Future<Quiz?> getQuizResultById(int id) async {
     var allNotedQuiz = await getFileContent();
 
@@ -88,6 +88,18 @@ class UserResultHandler {
       return null;
     } else {
       return allNotedQuiz.where((element) => element.id == id).first;
+    }
+  }
+
+  /// Retourne les résultats d'un model de quiz si il y en a un ou null si le fichier du quiz n'est pas existant ou que le [quizId] n'est pas existant.
+  static Future<List<Quiz>?> getQuizResultByQuizId(int quizId) async {
+    var allNotedQuiz = await getFileContent();
+
+    if (allNotedQuiz.where((element) => element.quizId == quizId).isEmpty) {
+      debugPrint("Il n'y a pas de quiz avec cet id.");
+      return null;
+    } else {
+      return allNotedQuiz.where((element) => element.quizId == quizId).toList();
     }
   }
 

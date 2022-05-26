@@ -4,7 +4,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_food_app/Model/MainModule.dart';
 import 'package:flutter_food_app/Model/ModuleId.dart';
 import 'package:flutter_food_app/Pages/handler_json/tool_handler.dart';
-import 'package:path_provider/path_provider.dart';
 import 'package:http/http.dart' as http;
 
 /* Ressources : 
@@ -20,7 +19,7 @@ class ModuleHandler {
   ModuleHandler._internal();
 
 // #region utils
-  // Récupère les données présentes dans le fichier local de gestion des quizs
+  /// Récupère les données présentes dans le fichier local de gestion des modules
   static Future<List<MainModule>> getMInvValue() async {
     var qInvFile = await ToolHandler.getFile(JsonFile.modules);
     var qInvFileJsonData = await qInvFile.readAsString();
@@ -38,6 +37,7 @@ class ModuleHandler {
     return qInvFileValue;
   }
 
+  /// Permet de récupérer un [id] qui n'est pas présent dans le fichier de stockage
   static Future<int> getUniqueId() async {
     var allMainModule = await getMInvValue();
     if (allMainModule.isNotEmpty) {
@@ -54,38 +54,9 @@ class ModuleHandler {
 
 // #endregion
 
-  static void test() async {
-    // On récupère les mainModules déjà présents
-    var mInvFile = await ToolHandler.getFile(JsonFile.modules);
-    var allMainModule = await getMInvValue();
-
-    final mockModules = List<ModuleId>.empty();
-
-    MainModule mainModule =
-        MainModule(id: 0, name: "test", modulesId: mockModules);
-    mainModule.modulesId.add(ModuleId(id: 1, type: ModuleType.quiz));
-    mainModule.modulesId.add(ModuleId(id: 2, type: ModuleType.quiz));
-    mainModule.modulesId.add(ModuleId(id: 3, type: ModuleType.cours));
-    mainModule.modulesId.add(ModuleId(id: 4, type: ModuleType.indefini));
-
-    List<MainModule> listMainModule = List<MainModule>.empty(growable: true);
-    listMainModule.add(mainModule);
-    listMainModule.add(MainModule(id: 1, name: "test", modulesId: mockModules));
-    listMainModule.add(MainModule(id: 2, name: "test", modulesId: mockModules));
-    listMainModule.add(MainModule(id: 3, name: "test", modulesId: mockModules));
-    listMainModule.add(MainModule(id: 4, name: "test", modulesId: mockModules));
-
-    // On écrase le fichier avec les anciennes ET la nouvelle valeur.
-    String allMainModuleJson = jsonEncode(listMainModule);
-
-    var writeStream = mInvFile.openWrite(mode: FileMode.write);
-    writeStream.write(allMainModuleJson);
-    await writeStream.close();
-  }
-
 // #region add MainModule
 
-  // Permet d'ajouter un quiz sans lui définir d'id.
+  /// Permet d'ajouter un quiz sans lui définir d'[id].
   static Future<int> addMainModuleToMInvWithGeneratedId(
       {required String name,
       required List<ModuleId> modules,
@@ -97,9 +68,10 @@ class ModuleHandler {
         definition: definition));
   }
 
+  /// Ajoute un module dans le stockage
   static Future<int> _addMainModuleToMInv(MainModule mainModule) async {
     // On récupère les mainModules déjà présents
-    var mInvFile = await ToolHandler.getFile(JsonFile.modules);
+
     var allMainModule = await getMInvValue();
 
     // On test si un mainModule n'a pas déjà cet id dans le stockage
@@ -115,42 +87,48 @@ class ModuleHandler {
     allMainModule.add(mainModule);
 
     // On écrase le fichier avec les anciennes ET la nouvelle valeur.
-    String allMainModuleJson = jsonEncode(allMainModule);
-
-    var writeStream = mInvFile.openWrite(mode: FileMode.write);
-    writeStream.write(allMainModuleJson);
-    await writeStream.close();
+    _saveToJsonFile(allMainModule);
 
     return mainModule.id;
   }
 
 // #endregion
 
-  // Retourne le quiz si il y en a un ou null si le fichier du quiz n'est pas existant ou que l'id n'est pas existant dans QInv.
+  /// Retourne un module ciblé par son [id]
   static Future<MainModule?> getMainModuleById(int id) async {
     var allMainModule = await getMInvValue();
 
     if (allMainModule.where((element) => element.id == id).isEmpty) {
       debugPrint("Il n'y a pas de quiz avec cet id.");
       return null;
+    } else {
+      return allMainModule.where((element) => element.id == id).first;
     }
   }
 
-  // Récupère les données présentes dans le fichier local de gestion des mainModules
-  static Future<List<MainModule>> getInvValue() async {
+  /// Essai de modifier la variable [MainModule.completionOfTheMainModule] d'un [MainModule] déjà sauvegardé.
+  /// Si il n'est pas existant retourne false, si tout c'est bien passé, retourne true.
+  static Future<bool> changeMainModuleCompletionById(
+      int id, int moduleCompletion) async {
+    if (getMainModuleById(id) != null) {
+      var allMainModule = await getMInvValue();
+      MainModule mainModule =
+          allMainModule.where((element) => element.id == id).first;
+      mainModule.completionOfTheMainModule = moduleCompletion;
+      _saveToJsonFile(allMainModule);
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  static void _saveToJsonFile(List<MainModule> allMainModule) async {
     var mInvFile = await ToolHandler.getFile(JsonFile.modules);
-    var mInvFileJsonData = await mInvFile.readAsString();
-    if (mInvFileJsonData == "") {
-      return List<MainModule>.empty(growable: true);
-    }
+    // On écrase le fichier avec les anciennes ET la nouvelle valeur.
+    String allMainModuleJson = jsonEncode(allMainModule);
 
-    var qInvFileValue = (jsonDecode(mInvFileJsonData) as List)
-        .map((i) => MainModule.fromJson(i))
-        .toList();
-
-    if (qInvFileValue.isEmpty) {
-      return List<MainModule>.empty(growable: true);
-    }
-    return qInvFileValue;
+    var writeStream = mInvFile.openWrite(mode: FileMode.write);
+    writeStream.write(allMainModuleJson);
+    await writeStream.close();
   }
 }

@@ -8,6 +8,7 @@ part of 'Quiz.dart';
 
 Quiz _$QuizFromJson(Map<String, dynamic> json) => Quiz(
       id: json['id'] as int,
+      quizId: json['quizId'] as int,
       name: json['name'] as String,
       niveau: json['niveau'] as String,
       matiere: json['matiere'] as String,
@@ -26,10 +27,12 @@ Quiz _$QuizFromJson(Map<String, dynamic> json) => Quiz(
       ..storageFileName = json['storageFileName'] as String
       ..result = (json['result'] as num).toDouble()
       ..totalCorrectAnswers = json['totalCorrectAnswers'] as int
-      ..totalWrongAnswers = json['totalWrongAnswers'] as int;
+      ..totalWrongAnswers = json['totalWrongAnswers'] as int
+      ..moduleValidated = json['moduleValidated'] as bool;
 
 Map<String, dynamic> _$QuizToJson(Quiz instance) => <String, dynamic>{
       'id': instance.id,
+      'quizId': instance.quizId,
       'name': instance.name,
       'niveau': instance.niveau,
       'matiere': instance.matiere,
@@ -46,4 +49,5 @@ Map<String, dynamic> _$QuizToJson(Quiz instance) => <String, dynamic>{
       'result': instance.result,
       'totalCorrectAnswers': instance.totalCorrectAnswers,
       'totalWrongAnswers': instance.totalWrongAnswers,
+      'moduleValidated': instance.moduleValidated,
     };

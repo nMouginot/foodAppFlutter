@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_food_app/Model/Quiz.dart';
 import 'package:flutter_food_app/Model/QuizFilters.dart';
 import 'package:flutter_food_app/Model/QuizWithoutQuestions.dart';
 import 'package:flutter_food_app/Pages/Page%20Quiz/QuizShardedPage/play_quiz.dart';
@@ -18,25 +19,6 @@ class ListQuiz extends StatefulWidget {
 }
 
 class _ListQuizState extends State<ListQuiz> {
-  // Ouvre le quiz qui a été cliqué
-  void navigateToQuizWithData(int? quizId, BuildContext context) async {
-    // TODO pop-up a mettre avant la navigation pour confirmer.
-
-    if (quizId != null) {
-      // Get quiz data
-      var quiz = await QuizHandler.getQuizById(quizId);
-      // Navigate to Quiz
-      if (quiz != null && quiz.isTraining == true) {
-        Navigator.of(context).push(MaterialPageRoute(
-            builder: (context) => PlayQuiz(parameterQuiz: quiz)));
-      } else {
-        debugPrint("Quiz Training = null, can't navigate.");
-      }
-    } else {
-      debugPrint("Quiz Training Id = null, can't navigate.");
-    }
-  }
-
   List<QuizWithoutQuestions> allQuiz =
       List<QuizWithoutQuestions>.empty(growable: true);
   bool allQuizInitialized = false;
@@ -148,7 +130,8 @@ class _ListQuizState extends State<ListQuiz> {
                 itemBuilder: (context, index) {
                   return ListTile(
                     onTap: () => {
-                      navigateToQuizWithData(sortedListQuiz[index].id, context)
+                      Quiz.navigateAndPlayQuizById(
+                          sortedListQuiz[index].id, context)
                     },
                     title: Text(sortedListQuiz[index].name),
                     subtitle: Text(

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_food_app/Model/ModuleId.dart';
 import 'package:flutter_food_app/Model/QuizWithoutQuestions.dart';
-import 'package:flutter_food_app/Pages/Page%20Quiz/QuizMainModule/list_select_quiz.dart';
+import 'package:flutter_food_app/Pages/MainModule/list_select_quiz.dart';
 import 'package:flutter_food_app/Pages/handler_json/module_handler.dart';
 import 'package:flutter_food_app/utils/dimension.dart';
 import 'package:flutter_food_app/utils/uicolors.dart';
@@ -41,18 +41,20 @@ class _CreateMainModuleState extends State<CreateMainModule> {
   void _navigateSelectQuiz(BuildContext context) async {
     // Navigator.push returns a Future that completes after calling
     // Navigator.pop on the Selection Screen.
-    QuizWithoutQuestions quiz = await Navigator.push(
+    QuizWithoutQuestions? quiz = await Navigator.push(
       context,
       MaterialPageRoute(builder: (context) => const ListSelectQuiz()),
     );
 
-    if (modules.any((element) => element.id == quiz.id)) {
-      debugPrint("Il y a déjà un module avec cet id d'ajouté");
-    } else {
-      setState(() {
-        modules.add(ModuleId(id: quiz.id, type: ModuleType.quiz));
-        displayedData.add(quiz);
-      });
+    if (quiz != null) {
+      if (modules.any((element) => element.id == quiz.id)) {
+        debugPrint("Il y a déjà un module avec cet id d'ajouté");
+      } else {
+        setState(() {
+          modules.add(ModuleId(id: quiz.id, type: ModuleType.quiz));
+          displayedData.add(quiz);
+        });
+      }
     }
   }
 

@@ -10,6 +10,7 @@ QuizWithoutQuestions _$QuizWithoutQuestionsFromJson(
         Map<String, dynamic> json) =>
     QuizWithoutQuestions(
       id: json['id'] as int,
+      quizId: json['quizId'] as int,
       name: json['name'] as String,
       niveau: json['niveau'] as String,
       matiere: json['matiere'] as String,
@@ -23,6 +24,7 @@ Map<String, dynamic> _$QuizWithoutQuestionsToJson(
         QuizWithoutQuestions instance) =>
     <String, dynamic>{
       'id': instance.id,
+      'quizId': instance.quizId,
       'name': instance.name,
       'niveau': instance.niveau,
       'matiere': instance.matiere,

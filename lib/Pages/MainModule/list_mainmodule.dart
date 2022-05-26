@@ -1,6 +1,9 @@
+import 'dart:async';
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_food_app/Model/MainModule.dart';
-import 'package:flutter_food_app/Pages/Page%20Quiz/QuizMainModule/list_module.dart';
+import 'package:flutter_food_app/Pages/MainModule/list_module.dart';
 import 'package:flutter_food_app/Pages/handler_json/module_handler.dart';
 import 'package:flutter_food_app/utils/dimension.dart';
 import 'package:flutter_food_app/utils/strings.dart';
@@ -15,40 +18,53 @@ class ListMainModule extends StatefulWidget {
 }
 
 class _ListMainModuleState extends State<ListMainModule> {
-  Stream<List<MainModule>> getMainModuleStream = (() async* {
-    await Future<void>.delayed(const Duration(milliseconds: 1));
-    yield await ModuleHandler.getInvValue();
-  })();
+  List<MainModule> listMainModule = List<MainModule>.empty();
+
+  @override
+  void initState() {
+    setupListMainModule().then((o) {
+      setState(() {});
+    });
+
+    super.initState();
+  }
+
+  /// Permet de récupérer la liste des MainModules stocker en local
+  Future setupListMainModule() async {
+    listMainModule = await ModuleHandler.getMInvValue();
+    return true;
+  }
+
+  /// Navigue sur les modules du main module selectionner et met à jour la liste au retour pour afficher correctement la completion.
+  void navigateToListModule(MainModule mainModule) async {
+    await Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => ListModule(mainModule: mainModule),
+      ),
+    );
+
+    setupListMainModule().then((o) {
+      setState(() {
+        for (var element in listMainModule) {
+          print(element);
+        }
+      });
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
-    return StreamBuilder<List<MainModule>>(
-      stream: getMainModuleStream,
-      initialData: List<MainModule>.empty(growable: true),
-      builder: (
-        BuildContext context,
-        AsyncSnapshot<List<MainModule>> listMainModules,
-      ) {
-        if (listMainModules.connectionState == ConnectionState.waiting) {
-          return Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: const [CircularProgressIndicator()]);
-        } else {
-          return LayoutBuilder(
+    return (listMainModule.isEmpty)
+        ? Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: const [CircularProgressIndicator()])
+        : LayoutBuilder(
             builder: (BuildContext context, BoxConstraints view) {
               Align startButton = Align(
                 alignment: AlignmentDirectional.bottomEnd,
                 child: InkWell(
-                  onTap: () {
-                    setState(() {
-                      // TODO navigation to listModule
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => ListModule()));
-                    });
-                  },
                   child: Container(
                     width: size130,
                     height: size40,
@@ -93,8 +109,7 @@ class _ListMainModuleState extends State<ListMainModule> {
                 ),
               );
 
-              Container cardListDetails(
-                  String name, int module, int percentage, String description) {
+              Container cardListDetails(MainModule mainModule) {
                 return Container(
                   width: view.maxWidth,
                   height: 200,
@@ -118,7 +133,7 @@ class _ListMainModuleState extends State<ListMainModule> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
-                                name,
+                                mainModule.name,
                                 style: TextStyle(
                                     color: black,
                                     fontSize: size20,
@@ -126,7 +141,7 @@ class _ListMainModuleState extends State<ListMainModule> {
                                     fontWeight: FontWeight.w400),
                               ),
                               Text(
-                                "$module Modules",
+                                "${mainModule.numberOfModule} Modules",
                                 style: TextStyle(
                                     color: grey11,
                                     fontSize: size16,
@@ -139,9 +154,10 @@ class _ListMainModuleState extends State<ListMainModule> {
                             radius: 60.0,
                             lineWidth: 5.0,
                             animation: true,
-                            percent: (percentage / 100),
+                            percent:
+                                (mainModule.completionOfTheMainModule / 100),
                             center: Text(
-                              "$percentage%",
+                              "${mainModule.completionOfTheMainModule}%",
                               style: TextStyle(
                                   color: black,
                                   fontSize: size16,
@@ -159,7 +175,7 @@ class _ListMainModuleState extends State<ListMainModule> {
                       ),
                       Expanded(
                         child: Text(
-                          description,
+                          mainModule.definition,
                           overflow: TextOverflow.clip,
                           maxLines: 2,
                           style: TextStyle(
@@ -169,7 +185,14 @@ class _ListMainModuleState extends State<ListMainModule> {
                               fontWeight: FontWeight.w300),
                         ),
                       ),
-                      startButton,
+                      GestureDetector(
+                        onTap: () {
+                          setState(() {
+                            navigateToListModule(mainModule);
+                          });
+                        },
+                        child: startButton,
+                      ),
                       SizedBox(
                         height: size15,
                       ),
@@ -206,15 +229,10 @@ class _ListMainModuleState extends State<ListMainModule> {
                     ListView.builder(
                       padding:
                           const EdgeInsets.only(left: 15, right: 15, top: 25),
-                      itemCount: listMainModules.data?.length,
+                      itemCount: listMainModule.length,
                       itemBuilder: (context, index) {
-                        final mainModule =
-                            listMainModules.data?[index] as MainModule;
-                        return cardListDetails(
-                            mainModule.name,
-                            mainModule.numberOfModule,
-                            mainModule.completionOfTheMainModule,
-                            mainModule.definition);
+                        final mainModule = listMainModule[index];
+                        return cardListDetails(mainModule);
                       },
                     ),
                   ],
@@ -222,8 +240,5 @@ class _ListMainModuleState extends State<ListMainModule> {
               );
             },
           );
-        }
-      },
-    );
   }
 }

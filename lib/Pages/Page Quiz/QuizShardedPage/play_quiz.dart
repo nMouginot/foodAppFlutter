@@ -36,6 +36,8 @@ class _PlayQuizState extends State<PlayQuiz> {
       currentQuestion = currentQuiz.questions.first;
     } else {
       // Si le quiz n'a pas de question, quitte la page.
+      debugPrint(
+          "Erreur lors de la navigation sur le quiz. Les questions sont vides.");
       Navigator.of(context).pop();
     }
     super.initState();
@@ -55,6 +57,7 @@ class _PlayQuizState extends State<PlayQuiz> {
         });
       } else {
         // Navigation sur la page de résultat
+        Navigator.of(context).pop();
         Navigator.of(context).push(MaterialPageRoute(
             builder: (context) => QuizResult(quizUserResult: currentQuiz)));
       }

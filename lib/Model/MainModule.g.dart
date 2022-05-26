@@ -15,7 +15,8 @@ MainModule _$MainModuleFromJson(Map<String, dynamic> json) => MainModule(
       definition: json['definition'] as String? ?? "",
     )
       ..tags = json['tags'] as String
-      ..lastUpdate = DateTime.parse(json['lastUpdate'] as String);
+      ..lastUpdate = DateTime.parse(json['lastUpdate'] as String)
+      ..completionOfTheMainModule = json['completionOfTheMainModule'] as int;
 
 Map<String, dynamic> _$MainModuleToJson(MainModule instance) =>
     <String, dynamic>{
@@ -25,4 +26,5 @@ Map<String, dynamic> _$MainModuleToJson(MainModule instance) =>
       'tags': instance.tags,
       'modulesId': instance.modulesId.map((e) => e.toJson()).toList(),
       'lastUpdate': instance.lastUpdate.toIso8601String(),
+      'completionOfTheMainModule': instance.completionOfTheMainModule,
     };

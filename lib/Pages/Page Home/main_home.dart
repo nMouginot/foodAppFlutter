@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_food_app/Model/QuizFilters.dart';
+import 'package:flutter_food_app/Pages/MainModule/create_mainmodule.dart';
+import 'package:flutter_food_app/Pages/MainModule/list_mainmodule.dart';
 import 'package:flutter_food_app/Pages/Page%20Home/debug_home.dart';
-import 'package:flutter_food_app/Pages/Page%20Quiz/QuizMainModule/create_mainmodule.dart';
-import 'package:flutter_food_app/Pages/Page%20Quiz/QuizMainModule/list_mainmodule.dart';
 import 'package:flutter_food_app/Pages/Page%20Quiz/QuizShardedPage/create_quiz.dart';
 import 'package:flutter_food_app/Pages/Page%20Quiz/QuizShardedPage/list_quiz.dart';
 import 'package:flutter_food_app/Tools/c_homeCard1.dart';
@@ -85,8 +85,8 @@ class _HomeState extends State<Home> {
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
                 GestureDetector(
-                  child: c_homeCard1("Support de cours", "Sub text",
-                      "assets/images/placeholder.png"),
+                  child: c_homeCard1(
+                      "notes", "Sub text", "assets/images/placeholder.png"),
                 ),
                 GestureDetector(
                   onTap: () => Navigator.of(context).push(MaterialPageRoute(

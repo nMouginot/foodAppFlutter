@@ -27,12 +27,15 @@ class QuizHandler {
 
   static void deleteFileByIndex(int index) async {
     final directory = await getApplicationDocumentsDirectory();
-    final file = (await Directory(directory.path).list().toList())
+    if ((await Directory(directory.path).list().toList())
         .whereType<File>()
-        .elementAt(index);
-    file.delete();
-
-    debugPrint("File ${file.path} with index($index) have been deleted.");
+        .isNotEmpty) {
+      final file = (await Directory(directory.path).list().toList())
+          .whereType<File>()
+          .elementAt(index);
+      file.delete();
+      debugPrint("File ${file.path} with index($index) have been deleted.");
+    }
   }
 
   // Récupère le fichier jsonFile enregistrer en local pour gérer les quizs
@@ -89,6 +92,7 @@ class QuizHandler {
       required int timerQuiz}) async {
     return await _addQuizToQInv(QuizWithoutQuestions(
         id: await getUniqueId(),
+        quizId: await getUniqueId(),
         name: name,
         niveau: niveau,
         matiere: matiere,
@@ -226,7 +230,6 @@ class QuizHandler {
           await File("${directory.path}/${quizRefInAllQuiz.storageFileName}")
               .create();
     }
-
     // On écrase le fichier du quiz avec les nouvelles données.
     String quizJson = jsonEncode(quiz);
 
