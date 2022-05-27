@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_food_app/Model/QuizFilters.dart';
-import 'package:flutter_food_app/Pages/MainModule/create_mainmodule.dart';
-import 'package:flutter_food_app/Pages/MainModule/list_mainmodule.dart';
+import 'package:flutter_food_app/Pages/MainModule&Module/create_mainmodule.dart';
+import 'package:flutter_food_app/Pages/MainModule&Module/list_mainmodule.dart';
 import 'package:flutter_food_app/Pages/Page%20Home/debug_home.dart';
 import 'package:flutter_food_app/Pages/Page%20Quiz/QuizShardedPage/create_quiz.dart';
 import 'package:flutter_food_app/Pages/Page%20Quiz/QuizShardedPage/list_quiz.dart';
+import 'package:flutter_food_app/Pages/Page%20Quiz/QuizTeacherGrading/list_quiz_graded_to_correct.dart';
 import 'package:flutter_food_app/Tools/c_homeCard1.dart';
 import '../../utils/dimension.dart';
 import '../../utils/uicolors.dart';
@@ -85,8 +86,8 @@ class _HomeState extends State<Home> {
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
                 GestureDetector(
-                  child: c_homeCard1(
-                      "notes", "Sub text", "assets/images/placeholder.png"),
+                  child: c_homeCard1("liste note", "Sub text",
+                      "assets/images/placeholder.png"),
                 ),
                 GestureDetector(
                   onTap: () => Navigator.of(context).push(MaterialPageRoute(
@@ -95,6 +96,27 @@ class _HomeState extends State<Home> {
                       "assets/images/placeholder.png"),
                 ),
               ],
+            ),
+            SizedBox(
+              height: size30,
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                GestureDetector(
+                  child: c_homeCard1("notes par MainModule",
+                      "Notes par modules", "assets/images/placeholder.png"),
+                ),
+                GestureDetector(
+                  onTap: () => Navigator.of(context).push(MaterialPageRoute(
+                      builder: (context) => const ListQuizGradedToCorrect())),
+                  child: c_homeCard1("Correction prof", "Sub text 2",
+                      "assets/images/placeholder.png"),
+                ),
+              ],
+            ),
+            SizedBox(
+              height: size30,
             ),
           ]),
     );

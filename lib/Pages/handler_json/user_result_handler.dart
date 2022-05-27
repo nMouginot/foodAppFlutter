@@ -103,6 +103,23 @@ class UserResultHandler {
     }
   }
 
+  /// Récupère tout les quizs actuellement non noté stocké en local. Si il n'y en a pas, retourne [null]
+  /// La liste est déjà trier par date de réponse, de la plus vieille à la plus récente. (Du plus urgent à corriger au moins urgent.)
+  static Future<List<Quiz>?> getQuizsToGrade() async {
+    var allQuizToGrade = await getFileContent();
+
+    if (allQuizToGrade
+        .where((element) => element.moduleGraded == false)
+        .isEmpty) {
+      debugPrint("Il n'y a pas de quiz à noté.");
+      return null;
+    } else {
+      allQuizToGrade.where((element) => element.moduleGraded == false).toList();
+      allQuizToGrade.sort(((a, b) => a.answerDate.compareTo(b.answerDate)));
+      return allQuizToGrade;
+    }
+  }
+
 //   // Récupère les données présentes dans le fichier local de gestion des mainModules
 //   static Future<List<MainModule>> getInvValue() async {
 //     var mInvFile = await _getURInvQuizFile();

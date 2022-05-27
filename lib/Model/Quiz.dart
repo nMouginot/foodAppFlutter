@@ -69,6 +69,9 @@ class Quiz {
   /// Permet de valider un non un module de type [ModuleType.quiz] pour la completion du [MainModule].
   bool moduleValidated = false;
 
+  /// Permet de vérifier si le quiz a été noté ou non. Utile pour les quiz gradeds.
+  bool moduleGraded = false;
+
   /// Affiche proprement le résultat du quiz sur 20 points.
   String get resultDisplayed => _computeResultDisplayed();
   String _computeResultDisplayed() {
@@ -158,24 +161,26 @@ class Quiz {
 
   /// Calcule les valeurs des parametres [result], [totalCorrectAnswers] et [totalWrongAnswers] en fonction des résultats présents dans la liste des questions.
   void computeQuizResult() {
-    result = 0;
-    totalCorrectAnswers = 0;
-    totalWrongAnswers = 0;
-    for (var question in questions) {
-      // TODO A modifier si l'on passe en multi réponses un jour.
-      if (question.userAnswers[0] == question.correctAnswers[0] &&
-              question.correctAnswers[0] == true ||
-          question.userAnswers[1] == question.correctAnswers[1] &&
-              question.correctAnswers[1] == true ||
-          question.userAnswers[2] == question.correctAnswers[2] &&
-              question.correctAnswers[2] == true ||
-          question.userAnswers[3] == question.correctAnswers[3] &&
-              question.correctAnswers[3] == true) {
-        result++;
-        totalCorrectAnswers++;
-      } else if (question.answerTextFromUser != "-1" &&
-          question.answerTextFromUser != "-2") {
-        totalWrongAnswers++;
+    if (isTraining) {
+      result = 0;
+      totalCorrectAnswers = 0;
+      totalWrongAnswers = 0;
+      for (var question in questions) {
+        // TODO A modifier si l'on passe en multi réponses un jour.
+        if (question.userAnswers[0] == question.correctAnswers[0] &&
+                question.correctAnswers[0] == true ||
+            question.userAnswers[1] == question.correctAnswers[1] &&
+                question.correctAnswers[1] == true ||
+            question.userAnswers[2] == question.correctAnswers[2] &&
+                question.correctAnswers[2] == true ||
+            question.userAnswers[3] == question.correctAnswers[3] &&
+                question.correctAnswers[3] == true) {
+          result++;
+          totalCorrectAnswers++;
+        } else if (question.answerTextFromUser != "-1" &&
+            question.answerTextFromUser != "-2") {
+          totalWrongAnswers++;
+        }
       }
     }
   }

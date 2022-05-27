@@ -7,8 +7,10 @@ class PrettyJsonDisplay {
   static JsonEncoder encoder = const JsonEncoder.withIndent('  ');
 
   static void prettyPrintJson(String input) {
-    var object = decoder.convert(input);
-    var prettyString = encoder.convert(object);
-    prettyString.split('\n').forEach((element) => debugPrint(element));
+    if (input.isNotEmpty) {
+      var object = decoder.convert(input);
+      var prettyString = encoder.convert(object);
+      prettyString.split('\n').forEach((element) => debugPrint(element));
+    }
   }
 }

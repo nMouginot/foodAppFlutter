@@ -32,13 +32,8 @@ class _QuestionGradedCardState extends State<QuestionGradedCard> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      margin: const EdgeInsets.symmetric(horizontal: kDefaultPadding),
-      padding: const EdgeInsets.all(kDefaultPadding),
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(25),
-      ),
+    return Padding(
+      padding: const EdgeInsets.fromLTRB(30, 00, 30, 10),
       child: Column(
         children: [
           Text(
@@ -51,14 +46,29 @@ class _QuestionGradedCardState extends State<QuestionGradedCard> {
           const SizedBox(height: kDefaultPadding / 2),
           Expanded(
             child: TextField(
-              controller: userAnswerController,
               onChanged: (value) => {
                 if (value.length == 2 || value.length == 3) {setState(() {})}
               },
+              controller: userAnswerController,
+              keyboardType: TextInputType.multiline,
+              textInputAction: TextInputAction.newline,
+              minLines: 100,
               maxLines: null,
-              expands: true,
+              decoration: InputDecoration(
+                  labelText: "Espace de réponse à la question.",
+                  enabledBorder: OutlineInputBorder(
+                    borderSide: BorderSide(
+                        width: 3, color: Colors.purple[700] as Color),
+                    borderRadius: BorderRadius.circular(15),
+                  ),
+                  focusedBorder: OutlineInputBorder(
+                    borderSide: BorderSide(
+                        width: 3, color: Colors.purple[700] as Color),
+                    borderRadius: BorderRadius.circular(40),
+                  )),
             ),
           ),
+          const SizedBox(height: kDefaultPadding / 2),
           ElevatedButton(
               onPressed: (userAnswerController.text.length >= 3)
                   ? () => checkAns(userAnswerController.text)

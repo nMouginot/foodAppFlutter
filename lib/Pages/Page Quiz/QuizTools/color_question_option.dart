@@ -45,6 +45,7 @@ class Option extends StatelessWidget {
         margin: const EdgeInsets.only(top: kDefaultPadding),
         padding: const EdgeInsets.all(kDefaultPadding),
         decoration: BoxDecoration(
+          color: Colors.white,
           border: Border.all(color: getTheRightColor()),
           borderRadius: BorderRadius.circular(15),
         ),

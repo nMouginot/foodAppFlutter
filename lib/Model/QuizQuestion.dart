@@ -34,6 +34,12 @@ class Question {
   /// Pour les quiz noté, permet à l'utilisateur de répondre sans avoir de réponse pré-existante. Si utilisé, answer1/2/3/4 sont vides.
   String answerTextFromUser;
 
+  /// Pour les quiz noté, permet au correcteur d'apporté des précisions si la réponse est fausse.
+  String correctorCommentary = "";
+
+  /// Pour les quiz noté, point obtenu avec cette question. 4 valeurs possibles : [-1], [0], [0,5], [1]
+  double result = -1;
+
   /// Liste de bool permetant de savoir les réponses de l'utilisateurs. Toujours une liste de 4 !
   List<bool> userAnswers;
 

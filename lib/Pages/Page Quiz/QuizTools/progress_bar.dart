@@ -77,7 +77,8 @@ class _ProgressBarState extends State<ProgressBar>
                   children: [
                     Text(
                       "${(controller.value * widget.timer).round()} sec",
-                      style: const TextStyle(color: Colors.white),
+                      style: TextStyle(
+                          color: Colors.grey[900], fontWeight: FontWeight.bold),
                     ),
                     SvgPicture.asset(
                       "assets/clock.svg",

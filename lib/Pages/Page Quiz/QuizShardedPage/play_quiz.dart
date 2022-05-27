@@ -4,6 +4,8 @@ import 'package:flutter_food_app/Model/QuizQuestion.dart';
 import 'package:flutter_food_app/Pages/Page%20Quiz/QuizShardedPage/quiz_result.dart';
 import 'package:flutter_food_app/Pages/Page%20Quiz/QuizTraining/question_training_card.dart';
 import 'package:flutter_food_app/utils/constants.dart';
+import 'package:flutter_food_app/utils/dimension.dart';
+import 'package:flutter_food_app/utils/uicolors.dart';
 import '../../../Model/Quiz.dart';
 import '../QuizTools/progress_bar.dart';
 import '../QuizGraded/question_graded_card.dart';
@@ -87,63 +89,91 @@ class _PlayQuizState extends State<PlayQuiz> {
     return Scaffold(
       extendBodyBehindAppBar: true,
       appBar: AppBar(
-        // disable the back button of the app bar
+        elevation: 5.0,
         automaticallyImplyLeading: false,
-        backgroundColor: Colors.transparent,
-        elevation: 0,
+        centerTitle: true,
+        backgroundColor: white,
+        title: Text(
+          "Quiz",
+          style: TextStyle(
+              color: black,
+              fontSize: size18,
+              fontFamily: "Saira",
+              fontWeight: FontWeight.w400),
+        ),
         actions: [
-          TextButton(
-              onPressed: () => {
-                    if (!isAnswered)
-                      {_updateTheQuestionIdWithAnswerSelected("-1")}
-                  },
-              child: const Text("Skip")),
+          Padding(
+            padding: const EdgeInsets.all(7),
+            child: ElevatedButton(
+                style: ElevatedButton.styleFrom(primary: Colors.purple[700]),
+                onPressed: () => {
+                      if (!isAnswered)
+                        {_updateTheQuestionIdWithAnswerSelected("-1")}
+                    },
+                child: const Text("Skip")),
+          ),
         ],
       ),
-      body: SafeArea(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Padding(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: kDefaultPadding),
-                child: Visibility(
-                  visible: !isAnswered,
-                  child: ProgressBar(
-                      key: UniqueKey(),
-                      timer: currentQuiz.timerQuiz,
-                      callback: _updateTheQuestionIdWithAnswerSelected),
-                )),
-            const SizedBox(height: kDefaultPadding),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: kDefaultPadding),
-              child: Text.rich(
-                TextSpan(
-                  text: "Question ${currentQuestion.idSorting}/",
-                  style: Theme.of(context).textTheme.headline4,
-                  children: [
-                    TextSpan(
-                        text: "${currentQuiz.questions.length}",
-                        style: Theme.of(context).textTheme.headline5),
-                  ],
-                ),
-              ),
+      body: Stack(
+        children: [
+          Container(
+            width: double.infinity,
+            height: double.infinity,
+            child: Image.asset(
+              "assets/images/screen_bg.png",
+              fit: BoxFit.cover,
             ),
-            const Divider(thickness: 1.5),
-            const SizedBox(height: kDefaultPadding),
-            Expanded(
-              child: (currentQuiz.isTraining)
-                  ? QuestionTrainingCard(
-                      question: currentQuestion,
-                      isAnswered: isAnswered,
-                      callback: _updateTheQuestionIdWithAnswerSelected)
-                  : QuestionGradedCard(
-                      question: currentQuestion,
-                      isAnswered: isAnswered,
-                      callback: _updateTheQuestionIdWithAnswerSelected),
-            )
-          ],
-        ),
+          ),
+          SafeArea(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const SizedBox(
+                  height: 10,
+                ),
+                Padding(
+                    padding:
+                        const EdgeInsets.symmetric(horizontal: kDefaultPadding),
+                    child: Visibility(
+                      visible: !isAnswered,
+                      child: ProgressBar(
+                          key: UniqueKey(),
+                          timer: currentQuiz.timerQuiz,
+                          callback: _updateTheQuestionIdWithAnswerSelected),
+                    )),
+                const SizedBox(height: kDefaultPadding),
+                Padding(
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: kDefaultPadding),
+                  child: Text.rich(
+                    TextSpan(
+                      text: "Question ${currentQuestion.idSorting}/",
+                      style: Theme.of(context).textTheme.headline4,
+                      children: [
+                        TextSpan(
+                            text: "${currentQuiz.questions.length}",
+                            style: Theme.of(context).textTheme.headline5),
+                      ],
+                    ),
+                  ),
+                ),
+                const Divider(thickness: 1.5),
+                const SizedBox(height: kDefaultPadding),
+                Expanded(
+                  child: (currentQuiz.isTraining)
+                      ? QuestionTrainingCard(
+                          question: currentQuestion,
+                          isAnswered: isAnswered,
+                          callback: _updateTheQuestionIdWithAnswerSelected)
+                      : QuestionGradedCard(
+                          question: currentQuestion,
+                          isAnswered: isAnswered,
+                          callback: _updateTheQuestionIdWithAnswerSelected),
+                )
+              ],
+            ),
+          ),
+        ],
       ),
     );
   }

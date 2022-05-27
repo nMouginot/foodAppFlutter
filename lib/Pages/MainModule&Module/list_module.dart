@@ -151,18 +151,20 @@ class _ListModuleState extends State<ListModule> {
                           itemCount: quizModules.length,
                           itemBuilder: (context, index) {
                             final module = quizModules[index];
-
+                            final String indexText =
+                                (index < 9) ? "0${index + 1}" : "${index + 1}";
                             return GestureDetector(
                               onTap: () => {
                                 startQuizAndUpdatePageAtTheEnd(module, context)
                               },
                               child: cardListDetails(
-                                  index + 1,
+                                  module,
                                   "${module.name}\nMatière : ${module.matiere}\nNiveau : ${module.niveau}",
                                   module.questions.length,
                                   module.totalTimerMinutes,
                                   module.moduleValidated,
-                                  view.maxWidth),
+                                  view.maxWidth,
+                                  indexText),
                             );
                           },
                         )
@@ -178,8 +180,8 @@ class _ListModuleState extends State<ListModule> {
   }
 }
 
-Widget cardListDetails(int num, String description, int question, int min,
-    bool check, double width) {
+Widget cardListDetails(Quiz quiz, String description, int question, int min,
+    bool check, double width, String indexText) {
   return Container(
     width: width, //view.maxWidth,
     height: size200,
@@ -217,7 +219,7 @@ Widget cardListDetails(int num, String description, int question, int min,
                   Padding(
                     padding: EdgeInsets.only(bottom: size10),
                     child: Text(
-                      "0$num",
+                      indexText,
                       style: TextStyle(
                           color: check ? blue11 : white,
                           fontSize: size26,
@@ -235,7 +237,7 @@ Widget cardListDetails(int num, String description, int question, int min,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    "Module 0$num",
+                    (quiz.isTraining) ? "Quiz d'entrainement" : "Quiz évalué",
                     style: TextStyle(
                         color: check ? white : black,
                         fontSize: size22,

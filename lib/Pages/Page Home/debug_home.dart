@@ -65,7 +65,7 @@ class _DebugHomeState extends State<DebugHome> {
             child: ccText("AFFICHER TOUT LES FICHIER LOCAUX"),
           ),
           ElevatedButton(
-            onPressed: () => {ToolHandler.getFileContentDebug(4)},
+            onPressed: () => {ToolHandler.getFileContentDebug(7)},
             child: ccText("CONTENU D'UN FICHIER PAR ID"),
           ),
           ElevatedButton(

@@ -28,7 +28,8 @@ Quiz _$QuizFromJson(Map<String, dynamic> json) => Quiz(
       ..result = (json['result'] as num).toDouble()
       ..totalCorrectAnswers = json['totalCorrectAnswers'] as int
       ..totalWrongAnswers = json['totalWrongAnswers'] as int
-      ..moduleValidated = json['moduleValidated'] as bool;
+      ..moduleValidated = json['moduleValidated'] as bool
+      ..moduleGraded = json['moduleGraded'] as bool;
 
 Map<String, dynamic> _$QuizToJson(Quiz instance) => <String, dynamic>{
       'id': instance.id,
@@ -50,4 +51,5 @@ Map<String, dynamic> _$QuizToJson(Quiz instance) => <String, dynamic>{
       'totalCorrectAnswers': instance.totalCorrectAnswers,
       'totalWrongAnswers': instance.totalWrongAnswers,
       'moduleValidated': instance.moduleValidated,
+      'moduleGraded': instance.moduleGraded,
     };

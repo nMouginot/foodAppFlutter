@@ -6,7 +6,6 @@ import '../QuizTools/color_question_option.dart';
 class QuestionTrainingCard extends StatelessWidget {
   const QuestionTrainingCard(
       {Key? key,
-      // it means we have to pass this
       required this.question,
       required this.isAnswered,
       required this.callback})
@@ -24,36 +23,43 @@ class QuestionTrainingCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      margin: const EdgeInsets.symmetric(horizontal: kDefaultPadding),
-      padding: const EdgeInsets.all(kDefaultPadding),
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(25),
-      ),
-      child: Column(
-        children: [
-          Text(
-            question.question,
-            style: Theme.of(context)
-                .textTheme
-                .headline6
-                ?.copyWith(color: kBlackColor),
+    return Stack(
+      children: [
+        Container(
+          width: double.infinity,
+          height: double.infinity,
+          child: Image.asset(
+            "assets/images/screen_bg.png",
+            fit: BoxFit.cover,
           ),
-          const SizedBox(height: kDefaultPadding / 2),
-          ...List.generate(
-            question.answersGrouped.length,
-            (index) => Option(
-              index: index,
-              userAnswer: question.answersGrouped[index],
-              indexAnswerSelected: index,
-              valideAnswers: question.correctAnswersText,
-              answered: isAnswered,
-              press: () => checkAns((index.toString() + "*")),
-            ),
+        ),
+        Padding(
+          padding: const EdgeInsets.all(kDefaultPadding),
+          child: Column(
+            children: [
+              Text(
+                question.question,
+                style: Theme.of(context)
+                    .textTheme
+                    .headline6
+                    ?.copyWith(color: kBlackColor),
+              ),
+              const SizedBox(height: kDefaultPadding / 2),
+              ...List.generate(
+                question.answersGrouped.length,
+                (index) => Option(
+                  index: index,
+                  userAnswer: question.answersGrouped[index],
+                  indexAnswerSelected: index,
+                  valideAnswers: question.correctAnswersText,
+                  answered: isAnswered,
+                  press: () => checkAns((index.toString() + "*")),
+                ),
+              ),
+            ],
           ),
-        ],
-      ),
+        ),
+      ],
     );
   }
 }
