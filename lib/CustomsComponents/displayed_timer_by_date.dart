@@ -24,12 +24,27 @@ class DisplayedTimerByDateUpdated extends StatefulWidget {
 class _DisplayedTimerByDateUpdatedState
     extends State<DisplayedTimerByDateUpdated> {
   late Timer timer;
+  late Duration duration;
+  int hours = 0;
+  int minutes = 0;
 
   @override
   void initState() {
     super.initState();
 
-    timer = Timer.periodic(widget.duration, (Timer t) => setState(() {}));
+    duration = (widget.startTime.add(const Duration(hours: 24)))
+        .difference(DateTime.now());
+    hours = duration.inHours;
+    minutes = duration.inMinutes % 60;
+
+    timer = Timer.periodic(
+        widget.duration,
+        (Timer t) => setState(() {
+              duration = (widget.startTime.add(const Duration(hours: 24)))
+                  .difference(DateTime.now());
+              hours = duration.inHours;
+              minutes = duration.inMinutes % 60;
+            }));
   }
 
   @override
@@ -40,7 +55,7 @@ class _DisplayedTimerByDateUpdatedState
 
   @override
   Widget build(BuildContext context) {
-    return Text(
-        "${widget.maxTimeInHours - 1 - (DateTime.now().hour - widget.startTime.hour)}H${60 - (DateTime.now().minute - widget.startTime.minute)}");
+    return Text("${hours}H$minutes");
+    // return Text("${widget.maxTimeInHours - 1 - (DateTime.now().hour - widget.startTime.hour)}H${60 - (DateTime.now().minute - widget.startTime.minute)}");
   }
 }

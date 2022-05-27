@@ -219,7 +219,8 @@ class _CardListDetailsState extends State<cardListDetails> {
                   ],
                 ),
                 Visibility(
-                  visible: (widget.question.result < 1),
+                  visible: (widget.question.result < 1 &&
+                      widget.question.result >= 0),
                   child: Container(
                     padding: const EdgeInsets.all(10),
                     child: TextField(
