@@ -22,7 +22,7 @@ Widget PageHeader({required String title, required Widget child}) {
     body: Stack(
       children: [
         // Fond de la page
-        Container(
+        SizedBox(
           width: double.infinity,
           height: double.infinity,
           child: Image.asset(

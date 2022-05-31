@@ -116,7 +116,7 @@ class _PlayQuizState extends State<PlayQuiz> {
       ),
       body: Stack(
         children: [
-          Container(
+          SizedBox(
             width: double.infinity,
             height: double.infinity,
             child: Image.asset(

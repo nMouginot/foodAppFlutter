@@ -1,6 +1,6 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
-import 'package:flutter_food_app/Tools/prettyJsonDisplay.dart';
+import 'package:flutter_food_app/utils/prettyJsonDisplay.dart';
 import 'package:path_provider/path_provider.dart';
 
 enum JsonFile {

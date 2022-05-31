@@ -2,10 +2,8 @@ import 'dart:io';
 import 'dart:convert';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_food_app/Model/QuizWithoutQuestions.dart';
-import 'package:flutter_food_app/Tools/prettyJsonDisplay.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:flutter_food_app/Model/Quiz.dart';
-import 'package:http/http.dart' as http;
 
 /* Ressources : 
 https://pub.dev/packages/path_provider/example

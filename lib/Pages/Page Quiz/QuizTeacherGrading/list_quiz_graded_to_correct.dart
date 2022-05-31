@@ -5,7 +5,6 @@ import 'package:flutter_food_app/CustomsComponents/page_header.dart';
 import 'package:flutter_food_app/Model/Quiz.dart';
 import 'package:flutter_food_app/Pages/Page%20Quiz/QuizTeacherGrading/correct_quiz.dart';
 import 'package:flutter_food_app/Pages/handler_json/user_result_handler.dart';
-import 'package:flutter_food_app/utils/uicolors.dart';
 
 class ListQuizGradedToCorrect extends StatefulWidget {
   const ListQuizGradedToCorrect({Key? key}) : super(key: key);

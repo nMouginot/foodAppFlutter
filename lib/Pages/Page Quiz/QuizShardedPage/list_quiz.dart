@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_food_app/Model/Quiz.dart';
 import 'package:flutter_food_app/Model/QuizFilters.dart';
 import 'package:flutter_food_app/Model/QuizWithoutQuestions.dart';
-import 'package:flutter_food_app/Pages/Page%20Quiz/QuizShardedPage/play_quiz.dart';
 import 'package:flutter_food_app/Pages/Page%20Quiz/QuizShardedPage/list_quiz_filters.dart';
 import 'package:flutter_food_app/Pages/Page%20Quiz/QuizTraining/create_quiz_training_questions.dart';
 import 'package:flutter_food_app/Pages/handler_json/quiz_handler.dart';

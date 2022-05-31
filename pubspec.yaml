@@ -44,6 +44,14 @@ dependencies:
   percent_indicator: ^3.0.1
   smooth_star_rating: ^1.1.1
   fl_chart: ^0.36.0
+  shared_preferences: ^2.0.15
+  connectivity: ^3.0.6
+  introduction_screen: ^3.0.2
+  flutter_login: ^3.2.0
+  crypt: ^4.2.1
+  file_picker: ^3.0.4
+  pdf_render: ^1.1.0
+  table_calendar: ^3.0.6
 
 dev_dependencies:
 
@@ -75,6 +83,7 @@ flutter:
     - assets/
     - assets/images/
     - assets/images/icons/
+    - assets/introductionScreen/
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.

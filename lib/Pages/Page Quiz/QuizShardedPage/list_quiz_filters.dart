@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_food_app/Components/c_divider1.dart';
 import 'package:flutter_food_app/Model/QuizFilters.dart';
-import 'package:flutter_food_app/Tools/c_divider1.dart';
 
 class ListQuizFilters extends StatefulWidget {
   const ListQuizFilters({Key? key, required this.quizFilters})

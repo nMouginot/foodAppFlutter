@@ -73,7 +73,7 @@ class _CorrectQuizState extends State<CorrectQuiz> {
         child: Column(
           children: [
             ListView.builder(
-              physics: NeverScrollableScrollPhysics(),
+              physics: const NeverScrollableScrollPhysics(),
               shrinkWrap: true,
               padding: const EdgeInsets.only(left: 15, right: 15, top: 25),
               itemCount: widget.quiz.questions.length,
@@ -116,7 +116,7 @@ class _CorrectQuizState extends State<CorrectQuiz> {
 
 // ignore: camel_case_types
 class cardListDetails extends StatefulWidget {
-  cardListDetails(
+  const cardListDetails(
       {Key? key,
       required this.question,
       required this.updateDisplayedResult,

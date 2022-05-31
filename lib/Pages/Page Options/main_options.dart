@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_food_app/Components/c_divider1.dart';
+import 'package:flutter_food_app/Components/c_header1.dart';
+import 'package:flutter_food_app/Components/c_snackbar.dart';
 import 'package:flutter_food_app/CustomsThemes/custom_dark_theme.dart';
 import 'package:flutter_food_app/CustomsThemes/custom_light_theme.dart';
 import 'package:flutter_food_app/Pages/Page%20Options/language_list.dart';
-import 'package:flutter_food_app/Tools/c_divider1.dart';
-import 'package:flutter_food_app/Tools/c_snackbar.dart';
-import 'package:flutter_food_app/Tools/c_header1.dart';
 
 import '../../main.dart';
 
@@ -25,45 +25,47 @@ class _MainOptionsState extends State<MainOptions> {
         (Theme.of(context).brightness == Brightness.dark) ? true : false;
     // Affichage
     return Scaffold(
-        appBar: AppBar(title: const Text("Options")),
-        body: Column(
-          children: [
-            c_header1(Icons.bookmarks_outlined, "Common", context: context),
-            c_divider1(),
-            settingsTextRow(
-                "Language",
-                "English",
-                () => {
-                      Navigator.of(context).push(MaterialPageRoute(
-                          builder: (context) => const LanguageList()))
-                    }),
-            settingsTextRow(
-                "Option",
-                "valeur",
-                () => {
-                      ScaffoldMessenger.of(context)
-                          .showSnackBar(c_snackbar("Clic option"))
-                    }),
-            c_header1(Icons.add_to_home_screen_rounded, "Themes",
-                context: context),
-            c_divider1(),
-            settingsSwitchButtonRow("Dark theme", null),
-            settingsTextRow(
-                "Option 1",
-                "valeur 1",
-                () => {
-                      ScaffoldMessenger.of(context)
-                          .showSnackBar(c_snackbar("Clic option 1"))
-                    }),
-            settingsTextRow(
-                "Option 2",
-                "valeur 2",
-                () => {
-                      ScaffoldMessenger.of(context)
-                          .showSnackBar(c_snackbar("Clic option 2"))
-                    })
-          ],
-        ));
+      appBar: AppBar(title: const Text("Options")),
+      body: Column(
+        children: [
+          c_header1(Icons.bookmarks_outlined, "Common", context: context),
+          c_divider1(),
+          settingsTextRow(
+              "Language",
+              "English",
+              () => {
+                    Navigator.of(context).push(MaterialPageRoute(
+                        builder: (context) => const LanguageList()))
+                  }),
+          settingsTextRow(
+              "Option",
+              "valeur",
+              () => {
+                    ScaffoldMessenger.of(context)
+                        .showSnackBar(c_snackbar("Clic option"))
+                  }),
+          c_header1(Icons.add_to_home_screen_rounded, "Themes",
+              context: context),
+          c_divider1(),
+          settingsSwitchButtonRow("Dark theme", null),
+          settingsTextRow(
+              "Option 1",
+              "valeur 1",
+              () => {
+                    ScaffoldMessenger.of(context)
+                        .showSnackBar(c_snackbar("Clic option 1"))
+                  }),
+          settingsTextRow(
+            "Option 2",
+            "valeur 2",
+            () => {
+              ScaffoldMessenger.of(context)
+                  .showSnackBar(c_snackbar("Clic option 2"))
+            },
+          )
+        ],
+      ),
+    );
   }
 
   Text settingsRowIconAndName(String text) {
@@ -94,15 +96,17 @@ class _MainOptionsState extends State<MainOptions> {
           Switch(
             value: isSwitchedDarkColorTheme,
             onChanged: (value) {
-              setState(() {
-                isSwitchedDarkColorTheme = value;
+              setState(
+                () {
+                  isSwitchedDarkColorTheme = value;
 
-                if (isSwitchedDarkColorTheme == true) {
-                  MyApp.of(context)!.changeTheme(customDarkTheme);
-                } else if (isSwitchedDarkColorTheme == false) {
-                  MyApp.of(context)!.changeTheme(customLightTheme);
-                }
-              });
+                  if (isSwitchedDarkColorTheme == true) {
+                    MyApp.of(context)!.changeTheme(customDarkTheme);
+                  } else if (isSwitchedDarkColorTheme == false) {
+                    MyApp.of(context)!.changeTheme(customLightTheme);
+                  }
+                },
+              );
             },
             activeTrackColor: Colors.lightGreenAccent,
             activeColor: Colors.green,

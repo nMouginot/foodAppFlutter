@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_food_app/Model/MainModule.dart';
@@ -218,7 +217,7 @@ class _ListMainModuleState extends State<ListMainModule> {
                 ),
                 body: Stack(
                   children: [
-                    Container(
+                    SizedBox(
                       width: view.maxWidth,
                       height: view.maxHeight,
                       child: Image.asset(

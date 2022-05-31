@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'custom_buttons.dart';
-import 'custom_text.dart';
+
+import 'components/custom_buttons.dart';
+import 'components/custom_text.dart';
 
 ThemeData customDarkTheme = ThemeData(
   brightness: Brightness.dark,

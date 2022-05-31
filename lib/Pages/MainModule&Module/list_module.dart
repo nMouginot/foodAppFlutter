@@ -134,7 +134,7 @@ class _ListModuleState extends State<ListModule> {
           ),
           body: Stack(
             children: [
-              Container(
+              SizedBox(
                 width: view.maxWidth,
                 height: view.maxHeight,
                 child: Image.asset(
@@ -284,7 +284,7 @@ Widget cardListDetails(Quiz quiz, String description, int question, int min,
                 width: size10,
               ),
               Text(
-                "${question} Questions",
+                "$question Questions",
                 style: TextStyle(
                     color: check ? white : black,
                     fontSize: size14,
@@ -304,7 +304,7 @@ Widget cardListDetails(Quiz quiz, String description, int question, int min,
                 width: size10,
               ),
               Text(
-                "${min} Min",
+                "$min Min",
                 style: TextStyle(
                     color: check ? white : black,
                     fontSize: size14,

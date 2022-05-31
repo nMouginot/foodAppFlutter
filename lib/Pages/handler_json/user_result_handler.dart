@@ -3,7 +3,6 @@ import 'dart:convert';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_food_app/Model/Quiz.dart';
 import 'package:flutter_food_app/Pages/handler_json/tool_handler.dart';
-import 'package:http/http.dart' as http;
 
 /* Ressources : 
 https://pub.dev/packages/path_provider/example
